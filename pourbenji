@@ -1,0 +1,35 @@
+import time
+import random
+from tqdm import tqdm
+
+
+def insert_sort(unsorted):
+    sorted = []
+
+    for i in unsorted:
+        added = False
+        for w in range(len(sorted)):
+            a = sorted[w]
+            if a > i:
+                sorted.insert(w, i)
+                added = True
+                break
+        if not added:
+            sorted.append(i)
+
+    return sorted
+
+total_time = 0
+lenght = 1000
+total = 100
+for _ in tqdm(range(total)):
+    random_list = [random.randint(0, 100) for _ in range(lenght)]
+    start_time = time.perf_counter()
+    sorted = insert_sort(random_list)
+    end_time = time.perf_counter()
+    assert all(sorted[i] <= sorted[i+1] for i in range(len(sorted) - 1)), "list not sorted"
+    assert len(sorted) == lenght, "list not full"
+    total_time += (end_time - start_time)
+
+average_time = (total_time / total) * 1000
+print(f"Average time taken: {average_time:.2f} milliseconds")
