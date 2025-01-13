@@ -14,7 +14,7 @@
 * #### Benjamin → [Ben-cpu-gpu](https://github.com/Ben-cpu-gpu)
 
 # 🧮 • TO DO LIST :
-> ![NOTE]
+> [!NOTE]
 > - [ ] Apprendre de tout le projet 2 et s'inspirer pour le projet 2.5
 > - [ ] Mettre à jour le jeu
 > - [ ] Correction intégrale des bugs ou potentiels bugs
