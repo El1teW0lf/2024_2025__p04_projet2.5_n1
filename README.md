@@ -1,15 +1,3 @@
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-# README EN TRAVAUX 🚂
-
 <h1 align="center">
   
   Projet de NSI N°2 : FNAP
@@ -48,4 +36,6 @@ Some text I want to provide a direct link to, but which doesn't have its own hea
 
 [A link to that custom anchor](#my-custom-anchor-point)
 > [!NOTE]
-> Useful information that users should know, even when skimming content.
+> Test encore
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/buttons/github-buttons/packages" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-package" data-size="large" aria-label="Install this package buttons/github-buttons on GitHub">Install this package</a>
