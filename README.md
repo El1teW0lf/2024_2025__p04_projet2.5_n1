@@ -1,9 +1,6 @@
 <h1 align="center">
   
   Projet de NSI N°2 : FNAP
-  
-![image](https://github.com/user-attachments/assets/165ae079-4226-4c7f-84eb-88d104f6c3f2)
-![image](https://github.com/user-attachments/assets/c8e71f08-2f96-47b9-8bd3-5e5738a868b1)
 
   <img src="http://ForTheBadge.com/images/badges/built-with-swag.svg">
   <img src="https://forthebadge.com/images/badges/made-with-python.svg">
@@ -16,28 +13,11 @@
 * #### Victor → [Herasium](https://github.com/Herasium)
 * #### Benjamin → [Ben-cpu-gpu](https://github.com/Ben-cpu-gpu)
 
-# ⚙️ • Fonctionnement :
-
-### [Clique sur le lien 👈](https://github.com/El1teW0lf/2024_2025__p04_projet2_n1/blob/main/fonctionnement.md)
-   
-# 💡 • Assistance :
-
-### [```Help```](https://github.com/El1teW0lf/2024_2025__p04_projet1_gp1/blob/main/Help.bat) >>> Lancement instantané du projet
-
-# Objectif du Jour : Correction intégral des bugs > 06/01/2025
-# TO DO LIST `rgb(9, 105, 218)`
-- [x] to do list
-
-`rgb(9, 105, 218)`
-<a name="my-custom-anchor-point"></a>
-Some text I want to provide a direct link to, but which doesn't have its own heading.
-
-(… more content…)
-
-[A link to that custom anchor](#my-custom-anchor-point)
-> [!NOTE]
-> Test encore
-<!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/buttons/github-buttons/packages" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-package" data-size="large" aria-label="Install this package buttons/github-buttons on GitHub">Install this package</a>
-
-![button] test
+# 🧮 • TO DO LIST :
+-[] Apprendre de tout le projet 2 et s'inspirer pour le projet 2.5
+-[] Mettre à jour le jeu
+-[] Correction intégrale des bugs ou potentiels bugs
+-[] Lancement de la Partie 2 du Projet
+-[] Ajout intégral des textures Blender
+-[] Optimisation de tous l'ensemble des Modules
+-[] Vérification approfondi de l'ensemble du Jeu
