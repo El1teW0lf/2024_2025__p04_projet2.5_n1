@@ -39,4 +39,4 @@
 # Objectif du Jour : Correction intégral des bugs > 06/01/2025
 black
 # TO DO LIST
-[x] to do list
+- [x] to do list
