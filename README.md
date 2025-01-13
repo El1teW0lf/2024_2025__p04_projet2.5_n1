@@ -21,3 +21,4 @@
 - [ ] Ajout intégral des textures Blender
 - [ ] Optimisation de tous l'ensemble des Modules
 - [ ] Vérification approfondi de l'ensemble du Jeu
+- [ ] Add delight to the experience when all tasks are complete :tada:
