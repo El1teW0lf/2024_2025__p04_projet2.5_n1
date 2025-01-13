@@ -23,6 +23,8 @@
 - [ ] Vérification approfondi de l'ensemble du Jeu
 
 
+<!DOCTYPE html>
+<html
 
       <svg
         width="300"
@@ -193,4 +195,6 @@
   
         </g>
       </svg>
+</body>
+</html>
     
