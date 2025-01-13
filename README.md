@@ -37,7 +37,7 @@
 ### [```Help```](https://github.com/El1teW0lf/2024_2025__p04_projet1_gp1/blob/main/Help.bat) >>> Lancement instantané du projet
 
 # Objectif du Jour : Correction intégral des bugs > 06/01/2025
-`rgb(9, 105, 218)` # TO DO LIST
+# TO DO LIST `rgb(9, 105, 218)`
 - [x] to do list
 
 
