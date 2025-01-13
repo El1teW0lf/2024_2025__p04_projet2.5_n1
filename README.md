@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html
 
-  <svg
+<svg
         width="300"
         height="115"
         viewBox="0 0 300 115"
