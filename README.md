@@ -14,7 +14,7 @@
 * #### Benjamin → [Ben-cpu-gpu](https://github.com/Ben-cpu-gpu)
 
 # 🧮 • TO DO LIST :
-- [ ] [Apprendre de tout le projet 2 et s'inspirer pour le projet 2.5](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/issues/2#issue-2783340201)
+- [ ] https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/issues/2#issue-2783340201
 - [ ] Mettre à jour le jeu
 - [ ] Correction intégrale des bugs ou potentiels bugs
 - [ ] Lancement de la Partie 2 du Projet
