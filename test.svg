@@ -138,8 +138,8 @@
           
     <g data-testid="rank-circle"
           transform="translate(365, 47.5)">
-        <circle class="rank-circle-rim" cx="-10" cy="8" r="40" />
-        <circle class="rank-circle" cx="-10" cy="8" r="40" />
+        <circle class="rank-circle-rim" cx="-10" cy="8" r="50" />
+        <circle class="rank-circle" cx="-10" cy="8" r="50" />
         <g class="rank-text">
           
         <text x="-5" y="3" alignment-baseline="central" dominant-baseline="central" text-anchor="middle" data-testid="level-rank-icon">
