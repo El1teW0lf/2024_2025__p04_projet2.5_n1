@@ -1,24 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
   <!-- Profil 1 (en haut à gauche) -->
   <g transform="translate(50, 50)">
+    <!-- Image -->
+    <image href="https://via.placeholder.com/80" x="10" y="-90" width="80" height="80" />
+    <!-- Nom -->
+    <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Profil 1</text>
+    <!-- Visage -->
     <circle cx="50" cy="50" r="40" fill="blue" />
     <path d="M50,50 Q20,70 20,90 T50,110" fill="none" stroke="black" stroke-width="2" />
   </g>
 
   <!-- Profil 2 (en haut à droite) -->
   <g transform="translate(250, 50)">
+    <!-- Image -->
+    <image href="https://via.placeholder.com/80" x="10" y="-90" width="80" height="80" />
+    <!-- Nom -->
+    <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Profil 2</text>
+    <!-- Visage -->
     <circle cx="50" cy="50" r="40" fill="green" />
     <path d="M50,50 Q80,70 80,90 T50,110" fill="none" stroke="black" stroke-width="2" />
   </g>
 
   <!-- Profil 3 (en bas à gauche) -->
   <g transform="translate(50, 250)">
+    <!-- Image -->
+    <image href="https://via.placeholder.com/80" x="10" y="-90" width="80" height="80" />
+    <!-- Nom -->
+    <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Profil 3</text>
+    <!-- Visage -->
     <circle cx="50" cy="50" r="40" fill="red" />
     <path d="M50,50 Q20,30 20,10 T50,-10" fill="none" stroke="black" stroke-width="2" />
   </g>
 
   <!-- Profil 4 (en bas à droite) -->
   <g transform="translate(250, 250)">
+    <!-- Image -->
+    <image href="https://via.placeholder.com/80" x="10" y="-90" width="80" height="80" />
+    <!-- Nom -->
+    <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Profil 4</text>
+    <!-- Visage -->
     <circle cx="50" cy="50" r="40" fill="orange" />
     <path d="M50,50 Q80,30 80,10 T50,-10" fill="none" stroke="black" stroke-width="2" />
   </g>
