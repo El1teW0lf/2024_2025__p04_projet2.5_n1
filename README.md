@@ -15,7 +15,7 @@
 
 # 🧮 • TO DO LIST :
 > [!NOTE]
-> - [ ] Apprendre de tout le projet 2 et s'inspirer pour le projet 2.5
+* - [ ] Apprendre de tout le projet 2 et s'inspirer pour le projet 2.5
 > - [ ] Mettre à jour le jeu
 > - [ ] Correction intégrale des bugs ou potentiels bugs
 > - [ ] Lancement de la Partie 2 du Projet
