@@ -1,31 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
-  <!-- Titre de la liste -->
-  <text x="20" y="40" font-size="24" font-weight="bold" fill="black">Ma To-Do List</text>
-  
-  <!-- Ligne de séparation -->
-  <line x1="20" y1="50" x2="480" y2="50" stroke="gray" stroke-width="1" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List Interactive</title>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+    <!-- Titre de la liste -->
+    <text x="20" y="40" font-size="24" font-weight="bold" fill="black">Ma To-Do List</text>
 
-  <!-- Élément 1 -->
-  <g transform="translate(20, 80)">
-    <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-    <text x="30" y="16" font-size="16" fill="black">Tâche 1 : Lire un chapitre de livre</text>
-  </g>
+    <!-- Ligne de séparation -->
+    <line x1="20" y1="50" x2="480" y2="50" stroke="gray" stroke-width="1" />
 
-  <!-- Élément 2 -->
-  <g transform="translate(20, 120)">
-    <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-    <text x="30" y="16" font-size="16" fill="black">Tâche 2 : Faire une promenade</text>
-  </g>
+    <!-- Élément 1 -->
+    <g transform="translate(20, 80)" onclick="toggleCheck(1)">
+      <rect id="box1" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
+      <text x="30" y="16" font-size="16" fill="black">Tâche 1 : Lire un chapitre de livre</text>
+    </g>
 
-  <!-- Élément 3 -->
-  <g transform="translate(20, 160)">
-    <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-    <text x="30" y="16" font-size="16" fill="black">Tâche 3 : Appeler un ami</text>
-  </g>
+    <!-- Élément 2 -->
+    <g transform="translate(20, 120)" onclick="toggleCheck(2)">
+      <rect id="box2" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
+      <text x="30" y="16" font-size="16" fill="black">Tâche 2 : Faire une promenade</text>
+    </g>
 
-  <!-- Élément 4 -->
-  <g transform="translate(20, 200)">
-    <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-    <text x="30" y="16" font-size="16" fill="black">Tâche 4 : Terminer un projet</text>
-  </g>
-</svg>
+    <!-- Élément 3 -->
+    <g transform="translate(20, 160)" onclick="toggleCheck(3)">
+      <rect id="box3" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
+      <text x="30" y="16" font-size="16" fill="black">Tâche 3 : Appeler un ami</text>
+    </g>
+
+    <!-- Élément 4 -->
+    <g transform="translate(20, 200)" onclick="toggleCheck(4)">
+      <rect id="box4" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
+      <text x="30" y="16" font-size="16" fill="black">Tâche 4 : Terminer un projet</text>
+    </g>
+  </svg>
+
+  <script>
+    // Fonction pour cocher/décocher une case
+    function toggleCheck(id) {
+      const box = document.getElementById(`box${id}`);
+      if (box.getAttribute('fill') === 'white') {
+        box.setAttribute('fill', 'green'); // Couleur cochée
+      } else {
+        box.setAttribute('fill', 'white'); // Couleur décochée
+      }
+    }
+  </script>
+</body>
+</html>
