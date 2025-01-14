@@ -6,55 +6,55 @@
   <g>
     <!-- Profile 1 -->
     <g>
-      <circle cx="100" cy="100" r="40" fill="blue">
-        <animate attributeName="cx" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <circle cx="-100" cy="100" r="40" fill="blue">
+        <animate attributeName="cx" from="-100" to="200" dur="10s" fill="freeze" />
       </circle>
-      <text x="100" y="160" text-anchor="middle" font-size="14" fill="black">
-        <animate attributeName="x" from="-100" to="700" dur="5s" repeatCount="indefinite" />
-        Ben
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="200" dur="10s" fill="freeze" />
+        Profil 1
       </text>
     </g>
 
     <!-- Profile 2 -->
     <g>
-      <circle cx="300" cy="100" r="40" fill="green">
-        <animate attributeName="cx" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <circle cx="-100" cy="100" r="40" fill="green">
+        <animate attributeName="cx" from="-100" to="300" dur="10s" fill="freeze" />
       </circle>
-      <text x="300" y="160" text-anchor="middle" font-size="14" fill="black">
-        <animate attributeName="x" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="300" dur="10s" fill="freeze" />
         Profil 2
       </text>
     </g>
 
     <!-- Profile 3 -->
     <g>
-      <circle cx="500" cy="100" r="40" fill="red">
-        <animate attributeName="cx" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <circle cx="-100" cy="100" r="40" fill="red">
+        <animate attributeName="cx" from="-100" to="400" dur="10s" fill="freeze" />
       </circle>
-      <text x="500" y="160" text-anchor="middle" font-size="14" fill="black">
-        <animate attributeName="x" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="400" dur="10s" fill="freeze" />
         Profil 3
       </text>
     </g>
 
     <!-- Profile 4 -->
     <g>
-      <circle cx="700" cy="100" r="40" fill="orange">
-        <animate attributeName="cx" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <circle cx="-100" cy="100" r="40" fill="orange">
+        <animate attributeName="cx" from="-100" to="500" dur="10s" fill="freeze" />
       </circle>
-      <text x="700" y="160" text-anchor="middle" font-size="14" fill="black">
-        <animate attributeName="x" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="500" dur="10s" fill="freeze" />
         Profil 4
       </text>
     </g>
 
     <!-- Profile 5 -->
     <g>
-      <circle cx="900" cy="100" r="40" fill="purple">
-        <animate attributeName="cx" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <circle cx="-100" cy="100" r="40" fill="purple">
+        <animate attributeName="cx" from="-100" to="600" dur="10s" fill="freeze" />
       </circle>
-      <text x="900" y="160" text-anchor="middle" font-size="14" fill="black">
-        <animate attributeName="x" from="-100" to="700" dur="5s" repeatCount="indefinite" />
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="600" dur="10s" fill="freeze" />
         Profil 5
       </text>
     </g>
