@@ -4,7 +4,7 @@
     <!-- Image -->
     <image href="https://via.placeholder.com/80" x="10" y="-90" width="80" height="80" />
     <!-- Nom -->
-    <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Profil 1</text>
+    <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Ben</text>
     <!-- Visage -->
     <circle cx="50" cy="50" r="40" fill="blue" />
     <path d="M50,50 Q20,70 20,90 T50,110" fill="none" stroke="black" stroke-width="2" />
