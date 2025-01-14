@@ -2,7 +2,7 @@
   <!-- Profil 1 (en haut à gauche) -->
   <g transform="translate(50, 50)">
     <!-- Image -->
-    <image href="https://via.placeholder.com/80" x="10" y="-90" width="80" height="80" />
+    <image href="https://images.app.goo.gl/fLWyQHuXxHsWCKgQA" x="10" y="-90" width="80" height="80" />
     <!-- Nom -->
     <text x="50" y="-10" font-size="14" text-anchor="middle" fill="black">Ben</text>
     <!-- Visage -->
