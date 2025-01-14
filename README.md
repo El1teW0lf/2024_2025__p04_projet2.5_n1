@@ -23,4 +23,3 @@
 > - [ ] Optimisation de tous l'ensemble des Modules
 > - [ ] Vérification approfondi de l'ensemble du Jeu
 > - [ ] Add delight to the experience when all tasks are complete :tada:
-- [ ]  (\https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/issues/2#issue-2783340201) Open
