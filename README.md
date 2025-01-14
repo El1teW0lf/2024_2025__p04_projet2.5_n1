@@ -13,12 +13,4 @@
 * #### Victor → [Herasium](https://github.com/Herasium)
 * #### Benjamin → [Ben-cpu-gpu](https://github.com/Ben-cpu-gpu)
 
-# 🧮 • TO DO LIST :
-> [!NOTE]
-> - [ ] Apprendre de tout le projet 2 et s'inspirer pour le projet 2.5
-> - [ ] Mettre à jour le jeu
-> - [ ] Correction intégrale des bugs ou potentiels bugs
-> - [ ] Lancement de la Partie 2 du Projet
-> - [ ] Ajout intégral des textures Blender
-> - [ ] Optimisation de tous l'ensemble des Modules
-> - [ ] Vérification approfondi de l'ensemble du Jeu
+
