@@ -3,51 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-Do List Interactive</title>
+  <title>Défilement de profils</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+  </style>
 </head>
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
-    <!-- Titre de la liste -->
-    <text x="20" y="40" font-size="24" font-weight="bold" fill="black">Ma To-Do List</text>
+  <svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" viewBox="0 0 600 200">
+    <!-- Background -->
+    <rect x="0" y="0" width="600" height="200" fill="white" stroke="gray" stroke-width="2" />
 
-    <!-- Ligne de séparation -->
-    <line x1="20" y1="50" x2="480" y2="50" stroke="gray" stroke-width="1" />
-
-    <!-- Élément 1 -->
-    <g transform="translate(20, 80)" onclick="toggleCheck(1)">
-      <rect id="box1" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-      <text x="30" y="16" font-size="16" fill="black">Tâche 1 : Lire un chapitre de livre</text>
-    </g>
-
-    <!-- Élément 2 -->
-    <g transform="translate(20, 120)" onclick="toggleCheck(2)">
-      <rect id="box2" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-      <text x="30" y="16" font-size="16" fill="black">Tâche 2 : Faire une promenade</text>
-    </g>
-
-    <!-- Élément 3 -->
-    <g transform="translate(20, 160)" onclick="toggleCheck(3)">
-      <rect id="box3" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-      <text x="30" y="16" font-size="16" fill="black">Tâche 3 : Appeler un ami</text>
-    </g>
-
-    <!-- Élément 4 -->
-    <g transform="translate(20, 200)" onclick="toggleCheck(4)">
-      <rect id="box4" x="0" y="0" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
-      <text x="30" y="16" font-size="16" fill="black">Tâche 4 : Terminer un projet</text>
+    <!-- Group of Profiles -->
+    <g id="profiles" transform="translate(0, 50)">
+      <!-- Profile 1 -->
+      <g transform="translate(0, 0)">
+        <circle cx="50" cy="50" r="40" fill="blue" />
+        <text x="50" y="120" text-anchor="middle" font-size="14" fill="black">Profil 1</text>
+      </g>
+      <!-- Profile 2 -->
+      <g transform="translate(150, 0)">
+        <circle cx="50" cy="50" r="40" fill="green" />
+        <text x="50" y="120" text-anchor="middle" font-size="14" fill="black">Profil 2</text>
+      </g>
+      <!-- Profile 3 -->
+      <g transform="translate(300, 0)">
+        <circle cx="50" cy="50" r="40" fill="red" />
+        <text x="50" y="120" text-anchor="middle" font-size="14" fill="black">Profil 3</text>
+      </g>
+      <!-- Profile 4 -->
+      <g transform="translate(450, 0)">
+        <circle cx="50" cy="50" r="40" fill="orange" />
+        <text x="50" y="120" text-anchor="middle" font-size="14" fill="black">Profil 4</text>
+      </g>
+      <!-- Profile 5 -->
+      <g transform="translate(600, 0)">
+        <circle cx="50" cy="50" r="40" fill="purple" />
+        <text x="50" y="120" text-anchor="middle" font-size="14" fill="black">Profil 5</text>
+      </g>
     </g>
   </svg>
 
   <script>
-    // Fonction pour cocher/décocher une case
-    function toggleCheck(id) {
-      const box = document.getElementById(`box${id}`);
-      if (box.getAttribute('fill') === 'white') {
-        box.setAttribute('fill', 'green'); // Couleur cochée
-      } else {
-        box.setAttribute('fill', 'white'); // Couleur décochée
+    const profiles = document.getElementById('profiles');
+    let position = 0;
+
+    window.addEventListener('wheel', (event) => {
+      // Défilement vers le bas
+      if (event.deltaY > 0) {
+        position -= 150; // Défiler de 150px vers la gauche
+        if (position < -600) position = 0; // Réinitialiser
       }
-    }
+      // Défilement vers le haut
+      else {
+        position += 150; // Défiler de 150px vers la droite
+        if (position > 0) position = -600; // Réinitialiser
+      }
+      profiles.setAttribute('transform', `translate(${position}, 50)`);
+    });
   </script>
 </body>
 </html>
