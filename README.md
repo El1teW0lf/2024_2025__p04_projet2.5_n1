@@ -22,4 +22,4 @@
 > - [ ] Ajout intégral des textures Blender
 > - [ ] Optimisation de tous l'ensemble des Modules
 > - [ ] Vérification approfondi de l'ensemble du Jeu
-https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/issues/4#issue-2786511078
+> - https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/issues/4#issue-2786511078
