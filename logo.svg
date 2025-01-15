@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="200" viewBox="0 0 500 200">
+  <!-- Background (Optional, for visibility) -->
+  <rect x="0" y="0" width="500" height="200" fill="white" />
+
+  <!-- Stylized "FNAP" -->
+  <!-- Letter "F" -->
+  <g>
+    <path d="M50 50 H90 V70 H70 V90 H90 V110 H50 Z" fill="url(#gradient1)" />
+  </g>
+
+  <!-- Letter "N" -->
+  <g>
+    <path d="M110 50 H130 L170 110 H150 L130 70 V110 H110 Z" fill="url(#gradient2)" />
+  </g>
+
+  <!-- Letter "A" -->
+  <g>
+    <path d="M190 110 L210 50 L230 110 H215 L205 80 L195 110 Z" fill="url(#gradient1)" />
+    <circle cx="205" cy="95" r="5" fill="white" />
+  </g>
+
+  <!-- Letter "P" -->
+  <g>
+    <path d="M250 50 H270 Q290 50 290 70 Q290 90 270 90 H250 V110 H230 V50 Z" fill="url(#gradient2)" />
+    <circle cx="270" cy="70" r="10" fill="white" />
+  </g>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color: #6a5acd; stop-opacity: 1" />
+      <stop offset="100%" style="stop-color: #00bfff; stop-opacity: 1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color: #ff6347; stop-opacity: 1" />
+      <stop offset="100%" style="stop-color: #ffa500; stop-opacity: 1" />
+    </linearGradient>
+  </defs>
+</svg>
