@@ -1,6 +1,6 @@
 <h1 align="center">
   
-  Projet de NSI N°2 : FNAP
+ ![ Projet de NSI N°2 : FNAP](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/logo.svg)
 
   <img src="http://ForTheBadge.com/images/badges/built-with-swag.svg">
   <img src="https://forthebadge.com/images/badges/made-with-python.svg">
