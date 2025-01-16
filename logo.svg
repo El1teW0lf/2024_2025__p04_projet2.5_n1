@@ -22,7 +22,7 @@
 
   <!-- FNAF Letters -->
   <text x="300" y="150" font-size="100" font-family="Arial Black, sans-serif" fill="url(#text-gradient)" text-anchor="middle" opacity="0">
-    FNAF
+    FNAP
     <animate attributeName="opacity" from="0" to="1" dur="2s" begin="1s" fill="freeze" />
     <animate attributeName="letter-spacing" from="0" to="20" dur="2s" begin="1.5s" fill="freeze" />
   </text>
