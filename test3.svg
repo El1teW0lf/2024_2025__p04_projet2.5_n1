@@ -1,9 +1,28 @@
-<div id="container">
-  <svg id="loader" width="200px" height="200px" viewBox="0 0 200 200">
-    <path id="jump" fill="none" stroke="#2d2d2d" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M47.5,94.3c0-23.5,19.9-42.5,44.5-42.5s44.5,19,44.5,42.5" />
-    <g stroke="#2d2d2d" stroke-width="1">
-      <ellipse id="circleL" fill="none" stroke-miterlimit="10" cx="47.2" cy="95.6" rx="10.7" ry="2.7" />
-      <ellipse id="circleR" fill="none" stroke-miterlimit="10" cx="136.2" cy="95.6" rx="10.7" ry="2.7" />
-    </g>
-  </svg>
-</div>
+<svg id="loader" width="200px" height="200px" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Path for the jumping curve -->
+  <path id="jump" fill="none" stroke="#2d2d2d" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" 
+        d="M47.5,94.3c0-23.5,19.9-42.5,44.5-42.5s44.5,19,44.5,42.5">
+    <animate attributeName="stroke-dasharray" from="0,300" to="150,150" dur="2s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Reflected path for symmetry -->
+  <path id="jumpRef" fill="none" stroke="#2d2d2d" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" 
+        d="M47.5,94.3c0-23.5,19.9-42.5,44.5-42.5s44.5,19,44.5,42.5" transform="scale(1,-1) translate(0,-188)">
+    <animate attributeName="stroke-dasharray" from="0,300" to="150,150" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" from="0.05" to="0.05" dur="2s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Left circle animation -->
+  <ellipse id="circleL" fill="none" stroke="#2d2d2d" stroke-width="1" stroke-miterlimit="10" cx="47.2" cy="95.6" rx="0" ry="0">
+    <animate attributeName="rx" from="0" to="30" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="ry" from="0" to="10" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" from="1" to="0" dur="2s" repeatCount="indefinite" />
+  </ellipse>
+  
+  <!-- Right circle animation -->
+  <ellipse id="circleR" fill="none" stroke="#2d2d2d" stroke-width="1" stroke-miterlimit="10" cx="136.2" cy="95.6" rx="0" ry="0">
+    <animate attributeName="rx" from="0" to="30" dur="2s" repeatCount="indefinite" begin="0.5s" />
+    <animate attributeName="ry" from="0" to="10" dur="2s" repeatCount="indefinite" begin="0.5s" />
+    <animate attributeName="opacity" from="1" to="0" dur="2s" repeatCount="indefinite" begin="0.5s" />
+  </ellipse>
+</svg>
