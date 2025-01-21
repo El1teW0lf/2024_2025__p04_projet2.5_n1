@@ -3,8 +3,7 @@ from ursina.prefabs.first_person_controller import FirstPersonController
 
 app = Ursina()
 
-
-nsi_room =  load_blender_scene('nsi_room',application.asset_folder)
+nsi_room =  load_blender_scene('nsi_room_def1',application.asset_folder)
 
 nsi_room.Plane_006.collider = 'box'
 nsi_room.Plane_006.visible = True
