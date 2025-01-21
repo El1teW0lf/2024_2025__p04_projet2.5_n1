@@ -1,0 +1,27 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" style="background-color: black;">
+  <!-- Texte clignotant style hacker -->
+  <text x="50%" y="20%" fill="lime" font-size="48" font-family="monospace" text-anchor="middle" opacity="1">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+    SYSTEM HACKED
+  </text>
+  
+  <!-- Matrice binaire défilante -->
+  <text x="10" y="60" fill="lime" font-size="12" font-family="monospace" id="matrix">
+    <tspan x="10" dy="1.2em">01101000 01100001 01100011 01101011</tspan>
+    <tspan x="10" dy="1.2em">01100101 01110010 01110011 01111001</tspan>
+    <tspan x="10" dy="1.2em">01001000 01100001 01100011 01101011</tspan>
+    <animateTransform attributeName="transform" type="translate" from="0,0" to="0,600" dur="4s" repeatCount="indefinite"/>
+  </text>
+  
+  <!-- Lignes animées style circuit électronique -->
+  <line x1="50" y1="200" x2="750" y2="200" stroke="lime" stroke-width="2">
+    <animate attributeName="stroke-dasharray" values="5,5;0,10;5,5" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <line x1="400" y1="200" x2="400" y2="400" stroke="lime" stroke-width="2">
+    <animate attributeName="stroke-dasharray" values="5,5;10,0;5,5" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <circle cx="400" cy="400" r="20" fill="lime">
+    <animate attributeName="r" values="20;25;20" dur="0.5s" repeatCount="indefinite"/>
+  </circle>
+</svg>

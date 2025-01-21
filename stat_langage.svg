@@ -1,0 +1,73 @@
+<svg
+  width="300"
+  height="115"
+  viewBox="0 0 300 115"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="descId"
+>
+  <title id="titleId">Most Used Languages</title>
+  <desc id="descId">A visualization of the most used languages with a single progress bar showing combined percentages.</desc>
+  <style>
+    .header {
+      font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+      fill: #fff;
+      animation: fadeInAnimation 0.8s ease-in-out forwards;
+    }
+
+    @keyframes growWidthAnimation {
+      from {
+        width: 0;
+      }
+      to {
+        width: var(--width);
+      }
+    }
+
+    .lang-progress {
+      animation: growWidthAnimation 1s ease-in-out forwards;
+    }
+
+    .lang-name {
+      font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif;
+      fill: #9f9f9f;
+    }
+
+    .stat {
+      font: 600 14px 'Segoe UI', Ubuntu, Sans-Serif;
+      fill: #9f9f9f;
+    }
+  </style>
+
+  <!-- Background -->
+  <rect
+    x="0.5"
+    y="0.5"
+    rx="10"
+    width="299"
+    height="114"
+    fill="#151515"
+    stroke="#e4e2e2"
+  />
+
+  <!-- Title -->
+  <text x="25" y="30" class="header">Most Used Languages</text>
+
+  <!-- Combined Progress Bar -->
+  <g transform="translate(25, 55)">
+    <!-- Python Portion -->
+    <rect width="0" height="8" rx="4" fill="#f1e05a" class="lang-progress" style="--width: 70%; width: 210px;" />
+    <!-- Ursina Portion -->
+    <rect width="0" height="8" rx="4" fill="#ff0000" class="lang-progress" style="--width: 20%; width: 90px;" transform="translate(210, 0)" />
+  </g>
+
+  <!-- Labels -->
+  <g transform="translate(25, 80)">
+    <circle cx="5" cy="0" r="5" fill="#f1e05a" />
+    <text x="15" y="5" class="lang-name">Python 80.00%</text>
+
+    <circle cx="130" cy="0" r="5" fill="#ff0000" />
+    <text x="140" y="5" class="lang-name">Ursina 20.00%</text>
+  </g>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" viewBox="0 0 600 200">
+  <!-- Background -->
+  <rect x="0" y="0" width="600" height="200" fill="white" stroke="gray" stroke-width="2" />
+
+  <!-- Group of Profiles -->
+  <g>
+    <!-- Profile 1 -->
+    <g>
+      <circle cx="-100" cy="100" r="40" fill="blue">
+        <animate attributeName="cx" from="-100" to="150" dur="10s" fill="freeze" />
+      </circle>
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="150" dur="10s" fill="freeze" />
+        Profil 1
+      </text>
+    </g>
+
+    <!-- Profile 2 -->
+    <g>
+      <circle cx="-100" cy="100" r="40" fill="green">
+        <animate attributeName="cx" from="-100" to="250" dur="10s" fill="freeze" />
+      </circle>
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="250" dur="10s" fill="freeze" />
+        Profil 2
+      </text>
+    </g>
+
+    <!-- Profile 3 -->
+    <g>
+      <circle cx="-100" cy="100" r="40" fill="red">
+        <animate attributeName="cx" from="-100" to="350" dur="10s" fill="freeze" />
+      </circle>
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="350" dur="10s" fill="freeze" />
+        Profil 3
+      </text>
+    </g>
+
+    <!-- Profile 4 -->
+    <g>
+      <circle cx="-100" cy="100" r="40" fill="orange">
+        <animate attributeName="cx" from="-100" to="450" dur="10s" fill="freeze" />
+      </circle>
+      <text x="-100" y="160" text-anchor="middle" font-size="14" fill="black">
+        <animate attributeName="x" from="-100" to="450" dur="10s" fill="freeze" />
+        Profil 4
+      </text>
+    </g>
+  </g>
+</svg>
