@@ -2,7 +2,6 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from menus.main_menu import MainMenu  # Import menu class
 
-app = Ursina()
 
 # --- LOAD GAME SCENE ---
 # Load the Blender Scene (Initially Disabled)
@@ -16,6 +15,8 @@ player.set_position(Vec3(10.76, 3.6, 9.55))
 player.speed = 0
 player.gravity = 0
 
+e = Entity(model='cube', color=color.orange, position=(0,1,5), scale=5, rotation=(0,0,0), texture='fnaf_office.jpg')
+
 # Editor Camera (Initially Disabled)
 editor_camera = EditorCamera(enabled=False, ignore_paused=True)
 
@@ -27,8 +28,6 @@ def pause_input(key):
     if key == 'tab':    
         editor_camera.enabled = not editor_camera.enabled
         player.visible_self = editor_camera.enabled
-        player.cursor.enabled = not editor_camera.enabled
-        mouse.locked = not editor_camera.enabled
         editor_camera.position = player.position
         application.paused = editor_camera.enabled
 
