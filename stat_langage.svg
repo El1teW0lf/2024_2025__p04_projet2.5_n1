@@ -68,6 +68,6 @@
     <text x="15" y="5" class="lang-name">Python 80.00%</text>
 
     <circle cx="130" cy="0" r="5" fill="#ff0000" />
-    <text x="140" y="5" class="lang-name">Ursina 20.00%</text>
+    <text x="140" y="5" class="lang-name">Batch 20.00%</text>
   </g>
 </svg>
