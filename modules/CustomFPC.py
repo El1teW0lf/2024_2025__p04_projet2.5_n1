@@ -6,7 +6,7 @@ class CustomFirstPersonController(Entity):
         self.speed = 5
         self.height = 1
         self.camera_pivot = Entity(parent=self, y=self.height)
-
+        self.base = application.base
         camera.parent = self.camera_pivot
         camera.position = (0,0,0)
         camera.rotation = (0,0,0)
@@ -35,6 +35,8 @@ class CustomFirstPersonController(Entity):
             if ray.hit:
                 self.y = ray.world_point.y
 
+    def center_pointer(self):
+        self.base.win.movePointer(0, int(self.base.win.getXSize() / 2), int(self.base.win.getYSize() / 2))
 
     def update(self):
         self.rotation_y += mouse.velocity[0] * self.mouse_sensitivity[1]
@@ -43,9 +45,12 @@ class CustomFirstPersonController(Entity):
         #self.camera_pivot.rotation_x= clamp(self.camera_pivot.rotation_x, -90, 90)
 
         self.direction = Vec3(
-            self.forward * (held_keys['w'] - held_keys['s'])
-            + self.right * (held_keys['d'] - held_keys['a'])
+            self.forward * 0
+            + self.right * 0
             ).normalized()
+        
+        self.rotation_y = min(45,self.rotation_y)
+        self.rotation_y = max(-45,self.rotation_y)
 
         feet_ray = raycast(self.position+Vec3(0,0.5,0), self.direction, traverse_target=self.traverse_target, ignore=self.ignore_list, distance=.5, debug=False)
         head_ray = raycast(self.position+Vec3(0,self.height-.1,0), self.direction, traverse_target=self.traverse_target, ignore=self.ignore_list, distance=.5, debug=False)

@@ -4,6 +4,7 @@ from menus.settings import go_to_settings
 class MainMenu(Entity):
     def __init__(self, start_callback, quit_callback):
         super().__init__()
+
         self.start_callback = start_callback
         self.quit_callback = quit_callback
         # Create a background entity with a quad model
@@ -80,12 +81,16 @@ class MainMenu(Entity):
         for item in self.menu_items:
             item.disable()
 
+    def launch(self):
+        self.hide()
+        self.start_callback()
+        
     def update(self):
         # Check if the mouse is over the start button
         if mouse.hovered_entity == self.start_button:
             # Check if the left mouse button is pressed
             if mouse.left:
-                self.start_callback()  # Trigger the start callback when clicked
+                self.launch()  # Trigger the start callback when clicked
         elif mouse.hovered_entity == self.settings_button:
             if mouse.left:
                 go_to_settings(self)
