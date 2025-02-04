@@ -2,11 +2,9 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from menus.main_menu import MainMenu  # Import menu class
 
+app = Ursina()
 
-# --- LOAD GAME SCENE ---
-# Load the Blender Scene (Initially Disabled)
-nsi_room = load_blender_scene('nsi_room_def1', application.asset_folder)
-nsi_room.enabled = False  # ✅ Hide the entire game scene initially
+
 
 # Setup Player (Initially Disabled)
 player = FirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=False)
@@ -14,8 +12,6 @@ player.fade_out(0, 0)
 player.set_position(Vec3(10.76, 3.6, 9.55))
 player.speed = 0
 player.gravity = 0
-
-e = Entity(model='cube', color=color.orange, position=(0,1,5), scale=5, rotation=(0,0,0), texture='fnaf_office.jpg')
 
 # Editor Camera (Initially Disabled)
 editor_camera = EditorCamera(enabled=False, ignore_paused=True)
@@ -28,6 +24,8 @@ def pause_input(key):
     if key == 'tab':    
         editor_camera.enabled = not editor_camera.enabled
         player.visible_self = editor_camera.enabled
+        player.cursor.enabled = not editor_camera.enabled
+        mouse.locked = not editor_camera.enabled
         editor_camera.position = player.position
         application.paused = editor_camera.enabled
 
@@ -47,7 +45,6 @@ def start_game():
     main_menu.hide()
 
     # Enable game elements
-    nsi_room.enabled = True  #  Show the Blender scene
     player.enabled = True  # Enable player movement
     sky.enabled = True  # Enable skybox
     position_text.enabled = True  # Show position text
