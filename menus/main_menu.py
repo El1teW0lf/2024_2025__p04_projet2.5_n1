@@ -4,6 +4,8 @@ class MainMenu(Entity):
     def __init__(self, start_callback, quit_callback):
         super().__init__()
 
+        self.start_callback = start_callback
+
         # Create a background entity with a quad model
         self.bg = Entity(
             model="quad",
@@ -17,7 +19,7 @@ class MainMenu(Entity):
         self.title = Text("Learn Python with Pichon", scale=2, origin=(0, 0), y=0.4, color=color.white)
 
         # Buttons
-        self.start_button = Button(text="Start", scale=(0.2, 0.1), position=(0, 0.1), color=color.green, on_click=start_callback)
+        self.start_button = Button(text="Start", scale=(0.2, 0.1), position=(0, 0.1), color=color.green, on_click=self.launch)
         self.quit_button = Button(text="Quit", scale=(0.2, 0.1), position=(0, -0.1), color=color.red, on_click=quit_callback)
 
         # Store menu items in a list for easy hiding/showing
@@ -31,3 +33,7 @@ class MainMenu(Entity):
     def hide(self):
         for item in self.menu_items:
             item.disable()
+
+    def launch(self):
+        self.hide()
+        self.start_callback()
