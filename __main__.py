@@ -3,8 +3,9 @@ from ursina.prefabs.first_person_controller import FirstPersonController
 from modules.CustomFPC import CustomFirstPersonController
 from menus.main_menu import MainMenu  # Import menu class
 
+app = Ursina(development_mode=False,show_ursina_splash=False)
 
-app = Ursina(development_mode=False,title="Five Night at Pichon (BETA)")
+
 
 def setup_map():
     player = CustomFirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=True)
@@ -24,5 +25,6 @@ def setup_main_menu():
     menu = MainMenu(setup_map,quit)
 
 setup_main_menu()
+Sky(texture="textures/black.jpg")
 
 app.run()
