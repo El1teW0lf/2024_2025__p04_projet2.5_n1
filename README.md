@@ -1,5 +1,7 @@
 <h1 align="center">
-  
+
+
+ ![Logo](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/menus/assets/splash_menu/logo.png)
  ![ Projet de NSI N°2 : FNAP](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/logo.svg)
 
   <img src="http://ForTheBadge.com/images/badges/built-with-swag.svg">
