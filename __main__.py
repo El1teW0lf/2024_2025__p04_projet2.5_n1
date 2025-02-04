@@ -2,12 +2,17 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from modules.CustomFPC import CustomFirstPersonController
 from menus.main_menu import MainMenu  # Import menu class
+from menus.splash_screen import SplashMenu
+from menus.ingame_gui import IGGUI
+from nights.night1 import Night1
 
-app = Ursina(development_mode=True,show_ursina_splash=True,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
+app = Ursina(development_mode=True,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
 
-
+tick_events = []
+all_ticks_events = []
 
 def setup_map():
+    print("Map Setup")
     player = CustomFirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=True)
     player.fade_out(0, 0)
     player.set_position(Vec3(0, 0, 0))
@@ -21,6 +26,7 @@ def setup_map():
     office.model.setTwoSided(True)
 
     
+
     def pause_input(key):
         if key == 'escape':   
             editor_camera.enabled = not editor_camera.enabled
@@ -33,16 +39,66 @@ def setup_map():
             application.paused = editor_camera.enabled
 
     pause_handler = Entity(ignore_paused=True, input=pause_input)
+    ingame_gui = IGGUI()
+    print("Map Done")
+    print("Launching Night 1")
+
+    night = Night1()
+
+    add_all_ticks_event("night_tick",night.count_tick,())
+    print("Launched Night 1")
+
+    def update_debug_text(current):
+        ingame_gui.debug_info = [
+            f"Time Tick: {night.time}",
+            f"Current Tick: {current}",
+            f"Cpe's Position: {night.positions['CPE']}"
+        ]
+        ingame_gui.update()
+
+    add_all_ticks_event("debug_info_tick",update_debug_text,())
 
 def quit():
     pass
 
 def setup_main_menu():
+    splash = SplashMenu()
+    add_tick_event(300,splash.hide,())
     menu = MainMenu(setup_map,quit)
+    menu.hide()
+    add_tick_event(500,menu.show,())
+    
 
-setup_main_menu()
+def start():
+    Sky(texture="textures/black.jpg")
+    setup_main_menu()
 
+def check_tick_events(current):
+    for i in tick_events:
+        if i["count"] == current:
+            i["callback"](*i["args"])
+            del i
 
-Sky(texture="textures/black.jpg")
+def run_tick_events(current):
+    for i in all_ticks_events:
+        i["callback"](current, *i["args"])
+        del i
 
-app.run()
+def add_tick_event(tick_count, callback, args):
+    tick_events.append({"count" : tick_count,"callback": callback, "args": args})
+
+def add_all_ticks_event(name,callback, args):
+    all_ticks_events.append({"callback": callback,"name": name, "args": args})
+
+def run(count):
+    check_tick_events(count)
+    run_tick_events(count)
+    app.step()
+    
+
+if __name__ == "__main__":
+    start()
+    count = 0
+    while True:
+        count += 1 
+        run(count)

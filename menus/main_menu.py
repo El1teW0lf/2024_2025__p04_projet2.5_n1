@@ -10,7 +10,7 @@ class MainMenu(Entity):
         # Create a background entity with a quad model
         self.bg = Entity(
             model="quad",
-            origin=(0, -0.175),  # Center the background
+            origin=(0, -0.18),  # Center the background
             texture="assets/main_menu/green_bg.png",
             scale=(window.aspect_ratio * 11.25, 11.25),  # Correct scaling
             z=0  # Keep it in the background
@@ -65,7 +65,7 @@ class MainMenu(Entity):
             model="quad",
             parent=camera.ui,
             texture="assets/main_menu/pichon.png",
-            scale = (0.8, 10),
+            scale = (0.8, 1),
             origin=(0, 0),  # Align the left side of the sprite
             position = (0.5, -0.2),  # Place it at the top-left side of
         )
