@@ -3,7 +3,7 @@ from ursina.prefabs.first_person_controller import FirstPersonController
 from modules.CustomFPC import CustomFirstPersonController
 
 
-app = Ursina(development_mode=False)
+app = Ursina(development_mode=False,title="Five Night at Pichon (BETA)")
 
 
 editor_camera = EditorCamera(enabled=False, ignore_paused=True)
@@ -12,28 +12,20 @@ player.set_position(Vec3(0,0,0))
 player.speed = 0
 player.gravity = 0
 
-e = Entity(model='cube', color=color.orange, position=(0,1,5), scale=5, rotation=(0,0,0), texture='fnaf_office.jpg')
+load_model("models/untitled")
+e = Entity(model='untitled', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/output.jpg')
+e.model.setTwoSided(True)
 
 def pause_input(key):
     if key == 'escape':    
 
-        editor_camera.enabled = not editor_camera.enabled
         player.visible_self = editor_camera.enabled
         editor_camera.position = player.position
         application.paused = editor_camera.enabled
 
 pause_handler = Entity(ignore_paused=True, input=pause_input)
 
-test = Text("not_found")
 
-def display_camera_position():
-    test.text = str(editor_camera.position)  
-    print(editor_camera.position) 
-
-position_display_updater = Entity(ignore_paused=True, update=display_camera_position)
-
-
-Sky()
 
 app.run()
 
