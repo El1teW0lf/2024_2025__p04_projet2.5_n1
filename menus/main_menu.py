@@ -86,6 +86,10 @@ class MainMenu(Entity):
         self.hide()
         self.start_callback()
         
+    def tick(self,tick_count):
+        self.title.rotation_z_setter(sin(tick_count/30)*20)
+        self.title.rotation_y_setter(sin(tick_count/100)*20)
+
     def update(self):
         # Define default scales
         default_scales = {

@@ -21,8 +21,8 @@ def setup_map():
 
     editor_camera = EditorCamera(enabled=False, ignore_paused=True)
 
-    load_model("models/untitled")
-    office = Entity(model='untitled', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/office.png')
+    load_model("models/office_cylinder")
+    office = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/renders/Desk/desk_light.png')
     office.model.setTwoSided(True)
 
     
@@ -63,10 +63,11 @@ def quit():
 
 def setup_main_menu():
     splash = SplashMenu()
-    add_tick_event(300,splash.hide,())
+    add_tick_event(200,splash.hide,())
     menu = MainMenu(setup_map,quit)
     menu.hide()
-    add_tick_event(500,menu.show,())
+    add_tick_event(300,menu.show,())
+    add_all_ticks_event("main_menu_logo_animation",menu.tick,())
     
 
 def start():
