@@ -1,69 +1,104 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
+from modules.CustomFPC import CustomFirstPersonController
 from menus.main_menu import MainMenu  # Import menu class
+from menus.splash_screen import SplashMenu
+from menus.ingame_gui import IGGUI
+from nights.night1 import Night1
 
-app = Ursina()
+app = Ursina(development_mode=True,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
 
+tick_events = []
+all_ticks_events = []
 
+def setup_map():
+    print("Map Setup")
+    player = CustomFirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=True)
+    player.fade_out(0, 0)
+    player.set_position(Vec3(0, 0, 0))
+    player.speed = 0
+    player.gravity = 0
 
-# Setup Player (Initially Disabled)
-player = FirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=False)
-player.fade_out(0, 0)
-player.set_position(Vec3(10.76, 3.6, 9.55))
-player.speed = 0
-player.gravity = 0
+    editor_camera = EditorCamera(enabled=False, ignore_paused=True)
 
-# Editor Camera (Initially Disabled)
-editor_camera = EditorCamera(enabled=False, ignore_paused=True)
+    load_model("models/untitled")
+    office = Entity(model='untitled', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/office.png')
+    office.model.setTwoSided(True)
 
-# Skybox (Initially Disabled)
-sky = Sky(enabled=False)
+    
 
-# Function to toggle the editor camera
-def pause_input(key):
-    if key == 'tab':    
-        editor_camera.enabled = not editor_camera.enabled
-        player.visible_self = editor_camera.enabled
-        player.cursor.enabled = not editor_camera.enabled
-        mouse.locked = not editor_camera.enabled
-        editor_camera.position = player.position
-        application.paused = editor_camera.enabled
+    def pause_input(key):
+        if key == 'escape':   
+            editor_camera.enabled = not editor_camera.enabled
 
-pause_handler = Entity(ignore_paused=True, input=pause_input)
+            player.visible_self = editor_camera.enabled
+            editor_camera.position = player.position
+            player.rotation_y = 0
+            player.center_pointer()
 
-# Debugging text for position display (Initially Disabled)
-position_text = Text("Position: ", position=(-0.5, 0.4), scale=1.5, color=color.white, enabled=False)
+            application.paused = editor_camera.enabled
 
-def display_camera_position():
-    position_text.text = f"Position: {editor_camera.position}"
+    pause_handler = Entity(ignore_paused=True, input=pause_input)
+    ingame_gui = IGGUI()
+    print("Map Done")
+    print("Launching Night 1")
 
-position_display_updater = Entity(ignore_paused=True, update=display_camera_position, enabled=False)
+    night = Night1()
 
-# --- MENU SYSTEM ---
-def start_game():
-    print("Starting game...")
-    main_menu.hide()
+    add_all_ticks_event("night_tick",night.count_tick,())
+    print("Launched Night 1")
 
-    # Enable game elements
-    player.enabled = True  # Enable player movement
-    sky.enabled = True  # Enable skybox
-    position_text.enabled = True  # Show position text
-    position_display_updater.enabled = True  # Enable position updates
+    def update_debug_text(current):
+        ingame_gui.debug_info = [
+            f"Time Tick: {night.time}",
+            f"Current Tick: {current}",
+            f"Cpe's Position: {night.positions['CPE']}"
+        ]
+        ingame_gui.update()
 
-    # Set correct physics values
-    player.speed = 8
-    player.gravity = 9.8
-    window.color = color.black  # Change background color
+    add_all_ticks_event("debug_info_tick",update_debug_text,())
 
-def quit_game():
-    print("Quitting game...")
+def quit():
     application.quit()
 
-# --- INITIAL SETUP ---
-# Create the Main Menu
-main_menu = MainMenu(start_game, quit_game)
+def setup_main_menu():
+    splash = SplashMenu()
+    add_tick_event(300,splash.hide,())
+    menu = MainMenu(setup_map,quit)
+    menu.hide()
+    add_tick_event(500,menu.show,())
+    
 
-# Set menu background color
-window.color = color.dark_gray
+def start():
+    Sky(texture="textures/black.jpg")
+    setup_main_menu()
 
-app.run()
+def check_tick_events(current):
+    for i in tick_events:
+        if i["count"] == current:
+            i["callback"](*i["args"])
+            del i
+
+def run_tick_events(current):
+    for i in all_ticks_events:
+        i["callback"](current, *i["args"])
+        del i
+
+def add_tick_event(tick_count, callback, args):
+    tick_events.append({"count" : tick_count,"callback": callback, "args": args})
+
+def add_all_ticks_event(name,callback, args):
+    all_ticks_events.append({"callback": callback,"name": name, "args": args})
+
+def run(count):
+    check_tick_events(count)
+    run_tick_events(count)
+    app.step()
+    
+
+if __name__ == "__main__":
+    start()
+    count = 0
+    while True:
+        count += 1 
+        run(count)
