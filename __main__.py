@@ -35,7 +35,7 @@ def setup_map():
     pause_handler = Entity(ignore_paused=True, input=pause_input)
 
 def quit():
-    pass
+    application.quit()
 
 def setup_main_menu():
     menu = MainMenu(setup_map,quit)
@@ -46,3 +46,5 @@ setup_main_menu()
 Sky(texture="textures/black.jpg")
 
 app.run()
+
+

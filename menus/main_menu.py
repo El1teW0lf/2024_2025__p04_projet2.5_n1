@@ -10,9 +10,9 @@ class MainMenu(Entity):
         # Create a background entity with a quad model
         self.bg = Entity(
             model="quad",
-            origin=(0, -0.175),  # Center the background
+            origin=(0, 0),  # Center the background
             texture="assets/main_menu/green_bg.png",
-            scale=(window.aspect_ratio * 11.25, 11.25),  # Correct scaling
+            scale=(window.aspect_ratio * 8.25, 8.25),  # Correct scaling
             z=0  # Keep it in the background
         )
 
@@ -47,7 +47,7 @@ class MainMenu(Entity):
             origin=(0, 0),  # Align the left side of the button
             color=color.white,  # Prevents darkening effect
             collider="box",  # Adding a collider for the button
-            position=(-0.41, -0.075),  # Place it below the start button
+            position=(-0.425, -0.075),  # Place it below the start button
         )
 
         # Quit Button
@@ -61,15 +61,16 @@ class MainMenu(Entity):
             collider="box",  # Adding a collider for the button
             position=(-0.515, -0.2),  # Place it below the settings button
         )
+
         self.pichon = Entity(
             model="quad",
             parent=camera.ui,
             texture="assets/main_menu/pichon.png",
-            scale = (0.8, 10),
+            scale = (0.8, 0.9),
             origin=(0, 0),  # Align the left side of the sprite
-            position = (0.5, -0.2),  # Place it at the top-left side of
+            position = (0.5, -0.05),  # Place it at the top-left side of
         )
-        self.start_button.texture.filtering = None
+
         # Store menu items in a list for easy hiding/showing
         self.menu_items = [self.bg, self.title, self.start_button, self.settings_button, self.quit_button, self.pichon]
 
@@ -86,14 +87,27 @@ class MainMenu(Entity):
         self.start_callback()
         
     def update(self):
-        # Check if the mouse is over the start button
-        if mouse.hovered_entity == self.start_button:
-            # Check if the left mouse button is pressed
-            if mouse.left:
-                self.launch()  # Trigger the start callback when clicked
-        elif mouse.hovered_entity == self.settings_button:
-            if mouse.left:
-                go_to_settings(self)
-        elif mouse.hovered_entity == self.quit_button:
-            if mouse.left:
-                self.quit_callback()
+        # Define default scales
+        default_scales = {
+            self.start_button: (0.337, 0.1),
+            self.settings_button: (0.5, 0.1),
+            self.quit_button: (0.302, 0.1)
+        }
+
+        # Loop through all buttons
+        for button, default_scale in default_scales.items():
+            if mouse.hovered_entity == button:
+                mouse.visible = True
+                mouse.texture = "assets/on_hover_cursor.png"
+                button.scale = (default_scale[0] * 1.05, default_scale[1] * 1.05)  # Slightly increase size
+                if mouse.left:
+                    if button == self.start_button:
+                        self.launch()
+                    elif button == self.settings_button:
+                        go_to_settings(self)
+                    elif button == self.quit_button:
+                        self.quit_callback()
+            else:
+                button.scale = default_scale 
+                mouse.texture = None # Reset scale when not hovered
+
