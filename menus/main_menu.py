@@ -66,7 +66,7 @@ class MainMenu(Entity):
             model="quad",
             parent=camera.ui,
             texture="assets/main_menu/pichon.png",
-            scale = (0.8, 0.9),
+            scale = (0.8, 1),
             origin=(0, 0),  # Align the left side of the sprite
             position = (0.5, -0.05),  # Place it at the top-left side of
         )
