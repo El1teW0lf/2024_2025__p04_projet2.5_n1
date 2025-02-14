@@ -2,17 +2,20 @@ from ai.cpe import CPE
 from ursina import * 
 
 class Night1():
-    def __init__(self):
+
+    def __init__(self,player):
+
+        self.player = player
         self.time = 0 #based on tick count: 0 to 300, 12h to 6 am, 50 per hour for first night, add 1 every 60 tick count
         self.door_status = False #false = open, true = closed
 
         self.current_scene = 0 #0: Office, 1: Aisle right, 2: Aisle Left
         self.current_scene_type = False #false = cylinder, true = plane
 
-        self.office_cylinder = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/renders/Desk/desk_light.png')
+        self.office_cylinder = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/cylinder/Desk/desk_light.png')
         self.office_cylinder.model.setTwoSided(True)
 
-        self.office_plane = Entity(model="plane", position=(0,1,4), scale=5, rotation=(0,90,0), texture='textures/uv-grid.png')
+        self.office_plane = Entity(model="plane", position=(0,1,4), scale=5, rotation=(0,90,0), texture='textures\images\Left_aisle\Left_Left_Side\left_left__light_pc5.png')
         self.office_plane.model.setTwoSided(True)
         self.office_plane.disable()
         

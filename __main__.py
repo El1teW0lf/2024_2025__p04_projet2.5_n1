@@ -38,7 +38,7 @@ def setup_map():
     print("Map Done")
     print("Launching Night 1")
 
-    night = Night1()
+    night = Night1(player)
 
     add_all_ticks_event("night_tick",night.count_tick,())
     print("Launched Night 1")
