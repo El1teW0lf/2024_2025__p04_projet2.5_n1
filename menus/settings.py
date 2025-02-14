@@ -32,7 +32,7 @@ class SettingsMenu(Entity):
             origin = (0, 0),
             color = color.white,
             collider = "box",
-            position = (-0.1, 0),
+            position = (-0.08, 0.0125),
             z=-1
         )
 
@@ -44,7 +44,7 @@ class SettingsMenu(Entity):
             origin = (0, 0),
             color = color.white,
             collider = "box",
-            position = (-0.107, -0.1),
+            position = (-0.086, -0.1125),
             z=-1
         )
 
@@ -54,6 +54,9 @@ class SettingsMenu(Entity):
         if self.state == "green":
             for element in self.elements:
                 element.texture = f"assets/settings/green/{element.texture}"
+        elif self.state == "dark":
+            for element in self.elements:
+                element.texture = f"assets/settings/dark/{element.texture}"
         
     
     def back(self):
@@ -67,6 +70,40 @@ class SettingsMenu(Entity):
     def hide(self):
         for item in self.elements:
             item.disable()
+            
+    def on_hover_green(self, button, scale):
+        button.scale = scale[1] * 1.05, scale[0] * 1.05
+
+    def on_hover_dark(self, button, position):
+        pass
+
+    def on_hover(self):
+        buttons = {
+            self.back_btn : {
+                "position" : (-0.107, -0.1),
+                "scale" : (0.341, 0.1),
+                "function" : self.back()
+            },
+            self.audio_btn : {
+                "position" : (-0.1, -0.1),
+                "scale" : (0.358, 0.1)
+            }
+        }
+        for button, info in buttons.items():
+            if button.hovered:
+                if self.state == "green":
+                    self.on_hover_green(button, info["scale"])
+                    
+                elif self.state == "dark":
+                    self.on_hover_dark(button, info["position"])
+
+                if mouse.left:
+                    info["function"]
+            else:
+                button.scale = info["scale"]
+                button.position = info["position"]
+
+
 
     def update(self):
         default_scales = {
