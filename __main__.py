@@ -6,13 +6,15 @@ from menus.splash_screen import SplashMenu
 from menus.ingame_gui import IGGUI
 from nights.night1 import Night1
 
-app = Ursina(development_mode=True,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
+app = Ursina(development_mode=False,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
 
 tick_events = []
 all_ticks_events = []
 
 def setup_map():
     print("Map Setup")
+    load_model("models/plane")
+    load_model("models/office_cylinder")
     player = CustomFirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=True)
     player.fade_out(0, 0)
     player.set_position(Vec3(0, 0, 0))
@@ -20,12 +22,6 @@ def setup_map():
     player.gravity = 0
 
     editor_camera = EditorCamera(enabled=False, ignore_paused=True)
-
-    load_model("models/office_cylinder")
-    office = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/renders/Desk/desk_light.png')
-    office.model.setTwoSided(True)
-
-    
 
     def pause_input(key):
         if key == 'escape':   
@@ -39,7 +35,6 @@ def setup_map():
             application.paused = editor_camera.enabled
 
     pause_handler = Entity(ignore_paused=True, input=pause_input)
-    ingame_gui = IGGUI()
     print("Map Done")
     print("Launching Night 1")
 
@@ -47,6 +42,8 @@ def setup_map():
 
     add_all_ticks_event("night_tick",night.count_tick,())
     print("Launched Night 1")
+
+    ingame_gui = IGGUI(True,night)
 
     def update_debug_text(current):
         ingame_gui.debug_info = [
