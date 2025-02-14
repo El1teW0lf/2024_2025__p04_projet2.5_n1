@@ -1,7 +1,8 @@
 from ursina import *
 
 class IGGUI () :
-    def __init__(self,debug = False):
+    def __init__(self,debug = False,night = None):
+        self.night = night
         self.debug = debug
 
         self.debug_info = [
@@ -18,6 +19,8 @@ class IGGUI () :
             background=True  # optional: adds a background for better readability
         )
         
+        if not self.debug:
+            self.debug_label.disable()
 
         self.down_button = Entity(
             model="quad",
@@ -43,4 +46,4 @@ class IGGUI () :
 
         if mouse.hovered_entity == self.down_button:
             if mouse.left:
-                print("Button clicked")
+                self.night.check_door()

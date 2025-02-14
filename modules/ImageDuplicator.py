@@ -29,5 +29,5 @@ def duplicate_image(input_path, output_path):
 
 # Example usage
 input_folder = 'textures/raws'
-output_folder = 'textures/renders'
+output_folder = 'textures/cylinder'
 duplicate_images_in_folder(input_folder, output_folder)
