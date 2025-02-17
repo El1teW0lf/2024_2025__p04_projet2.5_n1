@@ -108,7 +108,7 @@ class MainMenu(Entity):
                     if button == self.start_button:
                         self.launch()
                     elif button == self.settings_button:
-                        go_to_settings(self, "green")
+                        go_to_settings(self, "dark")
                     elif button == self.quit_button:
                         self.quit_callback()
             else:
