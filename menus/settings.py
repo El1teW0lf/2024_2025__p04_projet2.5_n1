@@ -1,7 +1,8 @@
 from ursina import *
-
+from menus.audio_menu import go_to_audio
 
 class SettingsMenu(Entity):
+
     def __init__(self, previous_menu, state):
         super().__init__()
         self.previous_menu = previous_menu
@@ -47,12 +48,28 @@ class SettingsMenu(Entity):
             position = (-0.086, -0.1125),
             z=-1
         )
+        self.on_hover_arrow = Entity(
+            model = "quad",
+            parent = camera.ui,
+            texture = "on_hover_dark.png",
+            scale = (0.26, 0.1),
+            origin = (0, 0),
+            color = color.white,
+            collider = "box",
+            z=-1
+        )
 
         self.elements = [self.title, self.bg, self.back_btn, self.audio_btn]
 
     def get_textures(self):
-        for element in self.elements:
-            element.texture = f"assets/settings/{self.state}/{element.texture}"
+        if self.state == "green":
+            print("SETTINGS_LOGS : State is green")
+            for element in self.elements:
+                element.texture = f"assets/settings/green/{element.texture}"
+        elif self.state == "dark":
+            print("SETTINGS_LOGS : State is dark")
+            for element in self.elements:
+                element.texture = f"assets/settings/dark/{element.texture}"
 
         
     
@@ -69,10 +86,14 @@ class SettingsMenu(Entity):
             item.disable()
             
     def on_hover_green(self, button, scale):
-        button.scale = scale[1] * 1.05, scale[0] * 1.05
+        button.scale = (scale[0] * 1.05, scale[1] * 1.05)
 
     def on_hover_dark(self, button, position, scale):
-        button.scale = scale[1] * 1.05, scale[0] * 1.05
+        button.scale = (scale[0] * 1.05, scale[1] * 1.05)
+        self.on_hover_arrow.enable()
+        self.on_hover_arrow.position = (position[0] - 0.4 , position[1])
+
+
 
     def update(self):
         buttons = {
@@ -83,7 +104,8 @@ class SettingsMenu(Entity):
             },
             self.audio_btn : {
                 "position" : (-0.08, 0.0125),
-                "scale" : (0.358, 0.1)
+                "scale" : (0.358, 0.1),
+                "function" : go_to_audio
             }
         }
         for button, info in buttons.items():
@@ -99,9 +121,11 @@ class SettingsMenu(Entity):
             else:
                 button.scale = info["scale"]
                 button.position = info["position"]
+                self.on_hover_arrow.disable()
 
 
 def go_to_settings(previous_menu, state):
     previous_menu.hide()
     settings_menu = SettingsMenu(previous_menu, state)
     settings_menu.show()
+    settings_menu.get_textures()
