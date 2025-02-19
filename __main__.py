@@ -13,6 +13,8 @@ all_ticks_events = []
 
 def setup_map():
     print("Map Setup")
+    load_model("models/plane")
+    load_model("models/office_cylinder")
     player = CustomFirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=True)
     player.fade_out(0, 0)
     player.set_position(Vec3(0, 0, 0))
@@ -20,12 +22,6 @@ def setup_map():
     player.gravity = 0
 
     editor_camera = EditorCamera(enabled=False, ignore_paused=True)
-
-    load_model("models/office_cylinder")
-    office = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/renders/Desk/desk_light.png')
-    office.model.setTwoSided(True)
-
-    
 
     def pause_input(key):
         if key == 'escape':   
@@ -39,14 +35,15 @@ def setup_map():
             application.paused = editor_camera.enabled
 
     pause_handler = Entity(ignore_paused=True, input=pause_input)
-    ingame_gui = IGGUI()
     print("Map Done")
     print("Launching Night 1")
 
-    night = Night1()
+    night = Night1(player)
 
     add_all_ticks_event("night_tick",night.count_tick,())
     print("Launched Night 1")
+
+    ingame_gui = IGGUI(True,night)
 
     def update_debug_text(current):
         ingame_gui.debug_info = [
