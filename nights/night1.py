@@ -15,7 +15,7 @@ class Night1():
         self.office_cylinder = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/cylinder/Desk/desk_light.png')
         self.office_cylinder.model.setTwoSided(True)
 
-        self.office_plane = Entity(model="plane", position=(0,1,4), scale=5, rotation=(0,90,0), texture='textures\images\Left_aisle\Left_Left_Side\left_left__light_pc5.png')
+        self.office_plane = Entity(model="plane", position=(0,1,4), scale=5, rotation=(0,90,0), texture='textures/plane/Left_aisle/Left_Left_Side/left_left__light_pc5.png')
         self.office_plane.model.setTwoSided(True)
         self.office_plane.disable()
         
@@ -60,9 +60,11 @@ class Night1():
         if self.current_scene_type:
             self.office_plane.enable()
             self.office_cylinder.disable()
+            self.player.block_rotation()
         else:
             self.office_plane.disable()
             self.office_cylinder.enable()
+            self.player.can_rotate = True
         
 
     def check_door(self):

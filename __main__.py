@@ -6,7 +6,7 @@ from menus.splash_screen import SplashMenu
 from menus.ingame_gui import IGGUI
 from nights.night1 import Night1
 
-app = Ursina(development_mode=False,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
+app = Ursina(development_mode=True,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
 
 tick_events = []
 all_ticks_events = []
