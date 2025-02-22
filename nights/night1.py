@@ -15,7 +15,7 @@ class Night1():
         self.office_cylinder = Entity(model='office_cylinder', position=(0,1,0), scale=5, rotation=(0,90,0), texture='textures/cylinder/Desk/desk_light.png')
         self.office_cylinder.model.setTwoSided(True)
 
-        self.office_plane = Entity(model="plane", position=(0,1,4), scale=5, rotation=(0,90,0), texture='textures/plane/Left_aisle/Left_Left_Side/left_left__light_pc5.png')
+        self.office_plane = Entity(model="plane", position=(0,1,4), scale=5, rotation=(0,90,0), texture='textures/plane/Door/door_empty.png')
         self.office_plane.model.setTwoSided(True)
         self.office_plane.disable()
         
@@ -65,9 +65,35 @@ class Night1():
             self.office_plane.disable()
             self.office_cylinder.enable()
             self.player.can_rotate = True
+
+
+        if self.igg != None:
+            match self.current_scene:
+                case 0:
+                    self.igg.down_button.enable
         
 
     def check_door(self):
         self.current_scene = 1
         self.current_scene_type = True
         self.update_scene()
+
+    def office(self):
+        self.current_scene = 0
+        self.current_scene_type = False
+        self.update_scene()
+
+    def down_press(self):
+        if self.current_scene == 0:
+            self.check_door()
+
+    def up_press(self):
+        if self.current_scene == 1:
+            self.office()
+
+
+    def left_press(self):
+        pass
+
+    def right_press(self):
+        pass
