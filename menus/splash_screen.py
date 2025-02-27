@@ -13,8 +13,6 @@ class SplashMenu(Entity):
             position=(0, 0),  
         )
 
-        
-
         self.elements = [self.title]
     
     def show(self):

@@ -91,6 +91,6 @@ class CustomFirstPersonController(Entity):
 
     def block_rotation(self):
         self.can_rotate = False
-        self.center_pointer()
+
         self.rotation_y = 0
 
