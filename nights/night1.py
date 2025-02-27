@@ -31,9 +31,6 @@ class Night1():
         self.computer_screen_2_plane = Entity(model="quad",position=(0.55,0.8,3),scale = (0.94,0.84), rotation = (0,4,0),collider="box")
         self.hour_plane = Entity(model="quad",position=(0,1.2,3),scale = (0.2,0.2), rotation = (0,0,0),collider="box")
         
-        self.code_entity = Entity()
-        self.code_editor = CodeEditor(self.code_entity)
-
         self.computer_screen_1_plane.model.setTwoSided(True)
         self.computer_screen_2_plane.model.setTwoSided(True)
         self.hour_plane.model.setTwoSided(True)
@@ -42,9 +39,8 @@ class Night1():
         self.computer_2_gui = ComputerScreen2(self.computer_screen_2_plane)
         self.hour_gui = HourScreen(self.hour_plane)
 
-
-
-        self.hour_plane.input = b
+        self.code_entity = Entity()
+        self.code_editor = CodeEditor(self.code_entity,self.computer_2_gui.update_code)
 
         self.positions = {
             "Pichon": 0,

@@ -22,7 +22,9 @@ built_in = ["print", "range", "sum", "len", "int", "str", "list","lambda"]
 
 
 def divide_tokens(divided_code):
-    dividers = ['"', "'", "(", ")", "[", "]", "{", "}", "#", "+", "=", "*", "/", "-", ",", "\t", "\n", " ", ":",";"]
+    dividers = ['"', "'", "(", ")", "[", "]", "{", "}", "#", "+", "=", "*", "/", "-", ",", "" ,#replace \t
+                 "", #replace \n
+                 " ", ":",";"]
     result = [[]]
     text = ""
     for i in divided_code:
@@ -44,7 +46,11 @@ def divide_tokens(divided_code):
 
 def parse(code_list):
 
-    tokens = divide_tokens(code_list)
+    to_devide = ""
+    for i in code_list:
+        to_devide += i + ""
+
+    tokens = divide_tokens(to_devide)
     context = {
         "is_comment": False,
         "in_double_string": False,
@@ -54,6 +60,11 @@ def parse(code_list):
 
     for line in tokens:
         for token in line:
+
+            token = token.replace("","\t")
+            token = token.replace("","\n") #not the same, be careful
+
+
             context['is_comment'] = token == "#" or context['is_comment'] and token != "\n"
             if token == '"'  and not context["in_single_string"]:
                 context["in_double_string"] = not context["in_double_string"]
@@ -80,5 +91,16 @@ def parse(code_list):
                 color = syntax_colors["default"]
             
             result.append([token, color])
+
+    return result
+
+def hex_to_rgb(h): return tuple(int(h.lstrip("#")[i:i+2], 16)/255 for i in (0, 2, 4))
+
+def format(data):
+    result = ""
+
+    for i in data:
+        color = hex_to_rgb(i[1])
+        result += f"<rgb({color[0]},{color[1]},{color[2]},255)>{i[0]}"
 
     return result
