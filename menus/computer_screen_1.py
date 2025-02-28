@@ -4,6 +4,7 @@ class ComputerScreen1:
     def __init__(self, plane):
         self.parent = plane
         self.close = False
+        self.started = False
 
         self.log = Text(y=0.38,x=-0.4,z=-0.001,scale = 2)
         self.log.parent = self.parent

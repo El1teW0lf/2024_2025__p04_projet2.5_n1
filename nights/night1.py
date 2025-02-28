@@ -4,10 +4,13 @@ from menus.computer_screen_1 import ComputerScreen1
 from menus.computer_screen_2 import ComputerScreen2
 from menus.hour_screen import HourScreen
 from modules.code_editor import CodeEditor
+from modules.code_executor import CodeExecutor
 
 class Night1():
 
     def __init__(self,player, shader):
+
+        self.night_started = False
 
         self.previously_pressed = False
         self.player = player
@@ -42,6 +45,11 @@ class Night1():
         self.code_entity = Entity()
         self.code_editor = CodeEditor(self.code_entity,self.computer_2_gui.update_code)
 
+        self.run_button_plane = Entity(model="quad",position=(0,0.4,3),scale = (0.28,0.1), rotation = (0,0,0),collider="box", texture = "textures/computer/code_run.png")
+        self.run_button_plane.disable()
+
+        self.code_executor = CodeExecutor()
+
         self.positions = {
             "Pichon": 0,
             "Surveillant": 0,
@@ -69,13 +77,13 @@ class Night1():
     def count_tick(self,tick):
         if tick % 60 == 0:
             self.time += 1
-            self.time_tick()
-
-        self.is_colliding_with_computers()
+            if self.night_started:
+                self.time_tick()
 
         if mouse.left:
             if not self.previously_pressed:
                 self.previously_pressed = True
+                self.is_colliding_with_computers()
                 self.click()
         else: 
             self.previously_pressed = False
@@ -91,12 +99,37 @@ class Night1():
 
         self.computer_collide = collided
 
+    def is_colliding_with_run_button(self):
+        collided = False
+        for i in mouse.collisions:
+            if i.entity == self.run_button_plane:
+                collided = True
+
+        if mouse.collision == None:
+            collided = False 
+
+        return collided
 
     def click(self):
         if self.computer_collide:
             self.computer_toggle()
+            return
 
-        
+        if self.is_colliding_with_run_button():
+            self.run_code()
+            self.computer_toggle()
+            return
+
+    def run_code(self):
+        self.night_started = True
+        self.code_editor.can_code = False
+        self.computer_1_gui.started = True
+        self.computer_2_gui.started = True
+        print("Night Started")
+
+        self.code_executor.code = self.code_editor.get_code()
+        self.code_executor.run()
+
 
     def trigger_detector(self,position):
         print(f"Something moved and triggered the detector in room {position}")
@@ -117,10 +150,16 @@ class Night1():
             self.computer_1_gui.close = True
             self.computer_2_gui.close = True
             self.hour_gui.close = True
+            self.code_editor.close = True
 
             self.computer_1_gui.update()
             self.computer_2_gui.update()
             self.hour_gui.update()
+            
+            self.computer_2_gui.code.enable()
+
+            if not self.night_started:
+                self.run_button_plane.enable()
         else:
             self.player.position = (0,0,0)
             self.player.can_rotate = True
@@ -129,10 +168,14 @@ class Night1():
             self.computer_1_gui.close = False
             self.computer_2_gui.close = False
             self.hour_gui.close = False
+            self.code_editor.close = False
 
             self.computer_1_gui.update()
             self.computer_2_gui.update()
             self.hour_gui.update()
+
+            self.computer_2_gui.code.disable()
+            self.run_button_plane.disable()
 
     def set_button_status(self,down,left,right,up):
         if self.igg != None:

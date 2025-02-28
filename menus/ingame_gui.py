@@ -97,6 +97,10 @@ class IGGUI () :
 
         self.previously_pressed = False
 
+        if self.debug == False:
+            self.button_list.disable()
+            self.startup_value.disable()
+
     def set_opacity(self,button):
 
         mouse_pos = mouse.position
