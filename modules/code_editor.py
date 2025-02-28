@@ -1,6 +1,7 @@
 from modules.parser import parse, format
 
 class CodeEditor():
+
     def __init__(self,parent,update_screen):
 
         self.parent = parent
@@ -89,7 +90,7 @@ class CodeEditor():
                 self.input[self.cursor[0]] = self.remove_char(self.input[self.cursor[0]],self.cursor[1])
 
             else:
-                if len(self.input) > 1:
+                if len(self.input) > 1 and self.cursor[0]>0:
                     saved = self.input[self.cursor[0]]
                     self.input.pop(self.cursor[0])
                     self.cursor[0] -= 1
@@ -128,8 +129,6 @@ class CodeEditor():
 
         parsed = parse(added_cursor)
         self.refresh(format(parsed))
-
-        print(self.input,self.cursor)
 
     def get_code(self):
         result = ""

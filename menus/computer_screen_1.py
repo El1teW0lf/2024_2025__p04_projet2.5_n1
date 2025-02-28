@@ -6,19 +6,20 @@ class ComputerScreen1:
         self.close = False
         self.started = False
 
-        self.log = Text(y=0.38,x=-0.4,z=-0.001,scale = 2)
+        self.log = Text(y=0.36,x=-0.41,z=-0.001,scale = 1,color=color.hex("149414"),)
         self.log.parent = self.parent
-        self.log.text = """
-DEBUG1
-DEBUG2
-DEBUG3
-DEBUG4
-DEBUG5
-DEBUG6
-DEBUG7"""
-
+        self.log.text = ""
         self.parent.texture = "textures/computer/bad_terminal.png"
         self.log.disable()
+
+    def update_log(self,new_log):
+        trimmed = new_log[-25:]
+        result = "\n"
+        for i in trimmed:
+            new_i = (str(i)[:60] + '..') if len(str(i)) > 60 else str(i)
+            result +=  new_i + "\n"
+
+        self.log.text = result
 
     def update(self):
         if self.close:

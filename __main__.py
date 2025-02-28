@@ -100,7 +100,7 @@ def setup_main_menu():
     add_all_ticks_event("main_menu_logo_animation",menu.tick,())
     
 
-def start():
+def setup():
     Sky(texture="textures/black.jpg")
     setup_main_menu()
 
@@ -128,7 +128,7 @@ def run(count):
     
 
 if __name__ == "__main__":
-    start()
+    setup()
     while True:
         count += 1 
         run(count)

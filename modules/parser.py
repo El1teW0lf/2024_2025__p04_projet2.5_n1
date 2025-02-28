@@ -18,7 +18,7 @@ syntax_colors = {
     "default": "#f5e0dc"  
 }
 keywords = ["def", "class", "return", "if", "else", "elif", "for", "while", "try", "except", "break", "continue","True","False"]
-built_in = ["print", "range", "sum", "len", "int", "str", "list","lambda"]
+built_in = ["print", "range", "sum", "len", "int", "str", "list","lambda","global","f"]
 
 
 def divide_tokens(divided_code):

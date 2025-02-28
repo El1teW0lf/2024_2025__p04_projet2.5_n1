@@ -16,6 +16,7 @@ class Night1():
         self.player = player
         self.time = 0 #based on tick count: 0 to 300, 12h to 6 am, 50 per hour for first night, add 1 every 60 tick count
         self.door_status = False #false = open, true = closed
+        self.alive = True
 
         self.current_scene = 0 #0: Office, 1: Aisle right, 2: Aisle Left
         self.current_scene_type = False #false = cylinder, true = plane
@@ -48,7 +49,7 @@ class Night1():
         self.run_button_plane = Entity(model="quad",position=(0,0.4,3),scale = (0.28,0.1), rotation = (0,0,0),collider="box", texture = "textures/computer/code_run.png")
         self.run_button_plane.disable()
 
-        self.code_executor = CodeExecutor()
+        self.code_executor = CodeExecutor(self.computer_1_gui)
 
         self.positions = {
             "Pichon": 0,
@@ -73,11 +74,14 @@ class Night1():
 
     def time_tick(self):
         self.positions["CPE"] = self.cpe.on_time_tick(self.time)
+        self.code_executor.run_update()
+        if self.code_executor.crashed:
+            self.alive = False
 
     def count_tick(self,tick):
         if tick % 60 == 0:
             self.time += 1
-            if self.night_started:
+            if self.night_started and self.alive:
                 self.time_tick()
 
         if mouse.left:
@@ -128,7 +132,9 @@ class Night1():
         print("Night Started")
 
         self.code_executor.code = self.code_editor.get_code()
-        self.code_executor.run()
+        self.code_executor.setup()
+        if self.code_executor.crashed:
+            self.alive = False
 
 
     def trigger_detector(self,position):
