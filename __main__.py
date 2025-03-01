@@ -5,9 +5,34 @@ from menus.main_menu import MainMenu  # Import menu class
 from menus.splash_screen import SplashMenu
 from menus.ingame_gui import IGGUI
 from nights.night1 import Night1
+from shaders.psx_shader import psx_shader
+from panda3d.core import loadPrcFileData
+from modules.save import Save
+from modules.sfx import Sound
+import traceback
+
+def get_max_window_size(aspect_ratio):
+    screen_width, screen_height = window.fullscreen_size
+    target_width = screen_width
+    target_height = int(screen_width / aspect_ratio)
+
+    if target_height > screen_height:
+        target_height = screen_height
+        target_width = int(screen_height * aspect_ratio)
+
+    return target_width, target_height
 
 app = Ursina(development_mode=False,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
+save = Save()
+sound = Sound()
+window.forced_aspect_ratio = 1.777
+window.borderless = True
+max_width, max_height = get_max_window_size(window.forced_aspect_ratio)
+window.size = (max_width/2,max_height/2)
 
+loadPrcFileData("", "gl-version 3 2")
+
+count = 0
 tick_events = []
 all_ticks_events = []
 
@@ -15,6 +40,7 @@ def setup_map():
     print("Map Setup")
     load_model("models/plane")
     load_model("models/office_cylinder")
+
     player = CustomFirstPersonController(model='cube', z=-10, origin_y=-.5, speed=8, collider='box', enabled=True)
     player.fade_out(0, 0)
     player.set_position(Vec3(0, 0, 0))
@@ -25,49 +51,58 @@ def setup_map():
 
     def pause_input(key):
         if key == 'escape':   
-            editor_camera.enabled = not editor_camera.enabled
-
-            player.visible_self = editor_camera.enabled
-            editor_camera.position = player.position
-            player.rotation_y = 0
-            player.center_pointer()
-
-            application.paused = editor_camera.enabled
+            save.save()
+            quit()
 
     pause_handler = Entity(ignore_paused=True, input=pause_input)
     print("Map Done")
     print("Launching Night 1")
 
-    night = Night1(player)
+    window.fullscreen = True
+
+    night = Night1(player,save,sound)
 
     add_all_ticks_event("night_tick",night.count_tick,())
     print("Launched Night 1")
 
     ingame_gui = IGGUI(True,night)
+    night.igg = ingame_gui
+
+    ingame_gui.blink_opacity = 1
 
     def update_debug_text(current):
-        ingame_gui.debug_info = [
-            f"Time Tick: {night.time}",
-            f"Current Tick: {current}",
-            f"Cpe's Position: {night.positions['CPE']}"
-        ]
+        ingame_gui.debug_info = f"""
+            time_tick: {night.time}
+            current_tick: {current}
+            position_cpe: {night.positions['CPE']}
+            position_directeur: {night.positions['directeur']}
+            current_scene: {night.current_scene}
+            current_scene_type: {night.current_scene_type}
+            current_rotation: {player.rotation_y}
+            in_computer: {night.in_computer}
+            door_status: {night.door.status}
+            door_temps: {night.door.temp}
+            door_broken: {night.door.broken}
+        """
         ingame_gui.update()
 
     add_all_ticks_event("debug_info_tick",update_debug_text,())
+    add_tick_event(count + 10,window.center_on_screen,())
 
 def quit():
     application.quit()
 
 def setup_main_menu():
     splash = SplashMenu()
-    add_tick_event(200,splash.hide,())
+    add_tick_event(10,window.center_on_screen,())
+    add_tick_event(50,splash.hide,())
     menu = MainMenu(setup_map,quit)
     menu.hide()
-    add_tick_event(300,menu.show,())
+    add_tick_event(150,menu.show,())
     add_all_ticks_event("main_menu_logo_animation",menu.tick,())
     
 
-def start():
+def setup():
     Sky(texture="textures/black.jpg")
     setup_main_menu()
 
@@ -95,8 +130,15 @@ def run(count):
     
 
 if __name__ == "__main__":
-    start()
-    count = 0
-    while True:
-        count += 1 
-        run(count)
+    try:
+        setup()
+        while True:
+            count += 1 
+            run(count)
+    except Exception as e:
+        print("!!!CRITICAL ERROR!!!")
+        print("GAME CRASHED")
+        print("CRASH REPORT:")
+        traceback.print_exc()
+        save.save()
+        quit()

@@ -87,8 +87,8 @@ class MainMenu(Entity):
         self.start_callback()
         
     def tick(self,tick_count):
-        self.title.rotation_z_setter(sin(tick_count/30)*15)
-        self.title.rotation_y_setter(sin(tick_count/100)*15)
+        self.title.rotation_z_setter(sin(tick_count/30)*10)
+        self.title.rotation_y_setter(sin(tick_count/100)*10)
 
     def update(self):
         # Define default scales
@@ -108,10 +108,12 @@ class MainMenu(Entity):
                     if button == self.start_button:
                         self.launch()
                     elif button == self.settings_button:
-                        go_to_settings(self, "green")
+                        go_to_settings(self, "dark")
+                        print("MAIN_MENU_LOGS : Switching to green state for settings")
                     elif button == self.quit_button:
                         self.quit_callback()
             else:
                 button.scale = default_scale 
+                
                 mouse.texture = None # Reset scale when not hovered
 

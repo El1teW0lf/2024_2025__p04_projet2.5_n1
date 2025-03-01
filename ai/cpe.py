@@ -5,7 +5,7 @@ class CPE():
         self.main = main
         self.agressivite = agressivite
         self.delay = int(15 / agressivite) # time between moves, in time tick diveded by aggresivity level
-        self.path = [0,3,2,4,5,6,7]
+        self.path = [0,1,2,3,4,5,6,7]
         self.internal_tick = 0
         self.position_index = 0
 
@@ -19,7 +19,7 @@ class CPE():
         self.internal_tick += 1
         if self.internal_tick >= self.delay:
 
-            if self.path[self.position_index] == 7 and not self.main.door_status:
+            if self.path[self.position_index] == 7 and not self.main.door.status:
                 self.jumpscare()
 
             self.internal_tick = 0

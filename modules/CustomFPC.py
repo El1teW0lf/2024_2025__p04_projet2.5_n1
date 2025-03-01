@@ -15,6 +15,7 @@ class CustomFirstPersonController(Entity):
         self.mouse_sensitivity = Vec2(40, 40)
 
         self.gravity = 1
+        self.can_rotate = True
         self.grounded = False
         self.jump_height = 2
         self.jump_up_duration = .5
@@ -39,15 +40,15 @@ class CustomFirstPersonController(Entity):
         self.base.win.movePointer(0, int(self.base.win.getXSize() / 2), int(self.base.win.getYSize() / 2))
 
     def update(self):
-        self.rotation_y += mouse.velocity[0] * self.mouse_sensitivity[1]
+        if self.can_rotate :
+            self.rotation_y += mouse.velocity[0] * self.mouse_sensitivity[1]
 
         #self.camera_pivot.rotation_x -= mouse.velocity[1] * self.mouse_sensitivity[0]
         #self.camera_pivot.rotation_x= clamp(self.camera_pivot.rotation_x, -90, 90)
-
         self.direction = Vec3(
-            self.forward * 0
-            + self.right * 0
-            ).normalized()
+                self.forward * 0
+                + self.right * 0
+                ).normalized()
         
         self.rotation_y = min(45,self.rotation_y)
         self.rotation_y = max(-45,self.rotation_y)
@@ -87,4 +88,9 @@ class CustomFirstPersonController(Entity):
         mouse.locked = False
         self._original_camera_transform = camera.transform  
         camera.world_parent = scene
+
+    def block_rotation(self):
+        self.can_rotate = False
+
+        self.rotation_y = 0
 
