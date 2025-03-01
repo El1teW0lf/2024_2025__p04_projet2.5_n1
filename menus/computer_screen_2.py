@@ -8,7 +8,7 @@ class ComputerScreen2:
 
         self.parent.texture = "textures/computer/code_edit.png"
 
-        self.code = Text(y=0.33,x=-0.4,z=-0.001,scale = 2,color=color.red)
+        self.code = Text(y=0.33,x=-0.4,z=-0.001,scale = 1,color=color.red)
         self.code.parent = self.parent
         self.code.disable()
 

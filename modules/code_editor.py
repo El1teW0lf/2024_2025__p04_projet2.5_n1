@@ -2,11 +2,12 @@ from modules.parser import parse, format
 
 class CodeEditor():
 
-    def __init__(self,parent,update_screen):
+    def __init__(self,parent,update_screen,key_sfx):
 
         self.parent = parent
         self.refresh = update_screen
         self.close = False
+        self.sfx = key_sfx
 
         self.can_code = True
 
@@ -37,15 +38,15 @@ class CodeEditor():
             return
         
         if not self.can_code:
-            parsed = parse(self.input)
+            parsed = parse(self.input,[0,0])
             self.refresh(format(parsed))
             return
 
         big_keys=["tab","space"]
         big_chars=[""," "]
 
-        shift_keys = ["&","é",'"',"'","(","§","è","!","ç","à",")","-"]
-        shift_chars = ["1","2","3","4","5","6","7","8","9","0","°","_"]
+        shift_keys = ["&","é",'"',"'","(","§","è","!","ç","à",")","-",";"]
+        shift_chars = ["1","2","3","4","5","6","7","8","9","0","°","_","."]
 
         if len(key) == 1:
 
@@ -67,12 +68,14 @@ class CodeEditor():
 
             self.input[self.cursor[0]] = self.insert_char(self.input[self.cursor[0]],to_add,self.cursor[1])
             self.cursor[1] += 1
+            self.sfx()
 
         elif key in big_keys:
             to_add = big_chars[big_keys.index(key)]
 
             self.input[self.cursor[0]] = self.insert_char(self.input[self.cursor[0]],to_add,self.cursor[1])
             self.cursor[1] += 1
+            self.sfx()
 
         elif key == "enter":
 
@@ -83,7 +86,7 @@ class CodeEditor():
             self.cursor[0] += 1
             self.cursor[1] = 0
             self.input.insert(self.cursor[0],divided[1])
-        
+            self.sfx()
         elif key == "backspace":
             if len(self.input[self.cursor[0]]) > 0 and self.cursor[1] > 0:
                 self.cursor[1] -= 1
@@ -96,7 +99,7 @@ class CodeEditor():
                     self.cursor[0] -= 1
                     self.cursor[1] = len(self.input[self.cursor[0]])
                     self.input[self.cursor[0]] += saved
-
+            self.sfx()
         elif key == "shift" or key == "left shift":
             self.is_shift_pressed = True
 
@@ -108,26 +111,26 @@ class CodeEditor():
                 self.cursor[0] -= 1
                 if self.cursor[1] > len(self.input[self.cursor[0]+1]):
                     self.cursor[1] = len(self.input[self.cursor[0]])
-
+            self.sfx()
         elif key == "down arrow":
             if self.cursor[0] < len(self.input)-1:
                 self.cursor[0] += 1
                 if self.cursor[1] > len(self.input[self.cursor[0]]):
                     self.cursor[1] = len(self.input[self.cursor[0]])
-                    
+            self.sfx()           
         elif key == "right arrow":
             if self.cursor[1] < len(self.input[self.cursor[0]]):
                 self.cursor[1] += 1
-
+            self.sfx()
         elif key == "left arrow":
             if self.cursor[1] > 0:
                 self.cursor[1] -= 1
-
+            self.sfx()
 
         added_cursor = self.input.copy()
         added_cursor[self.cursor[0]] = self.insert_char(self.input[self.cursor[0]],"|",max(self.cursor[1],0))
 
-        parsed = parse(added_cursor)
+        parsed = parse(added_cursor,[max(0,self.cursor[0]-27),max(0,self.cursor[1]-53)])
         self.refresh(format(parsed))
 
     def get_code(self):

@@ -4,11 +4,12 @@ class HourScreen:
     def __init__(self, plane):
         self.parent = plane
         self.close = False
+        self.display = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM"]
 
         self.parent.texture = "textures/black.jpg"
 
         self.hour = Text(
-            "12 AM",
+            "",
             color=color.hex("149414"),
             parent=self.parent,
             origin = (0,0),
@@ -21,6 +22,8 @@ class HourScreen:
 
         self.parent.disable()
 
+    def update_hour(self,new):
+        self.hour.text = self.display[new]
 
     def update(self):
         if self.close:

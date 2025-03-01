@@ -2,6 +2,7 @@ import multiprocess as mp
 from RestrictedPython import compile_restricted
 from RestrictedPython.Guards import safe_builtins
 from ctypes import c_bool
+import time
 
 class CustomPrintFactory:
     def __init__(self, output):
@@ -25,20 +26,60 @@ def _inplacevar_(operator, old_value, new_value):
     else:
         raise ValueError(f"Unsupported operator: {operator}")
 
+_SAFE_MODULES = frozenset(("math",))
+
+def _safe_import(name, *args, **kwargs):
+    if name not in _SAFE_MODULES:
+        raise Exception(f"Don't you even think about {name!r}")
+    return __import__(name, *args, **kwargs)
+
+class SafeDoor():
+    def __init__(self,status,desired,broken):
+        self._status = status
+        self._desired = desired
+        self._broken = broken
+
+    @property
+    def status(self):
+        return self._status.value
+    
+    @status.setter
+    def status(self,status):
+        self._desired.value = status
+        return self._broken
+
+class SafeDetector():
+    def __init__(self,last):
+        self._last = last
+
+    @property
+    def last_moved(self):
+        return self._last.value
+    
 class CodeExecutor():
-    def __init__(self,log_gui):
+    def __init__(self,log_gui,door,sfx):
         self.code = None
         self.output = []
-        self.timeout = 0.05
+        self.timeout = 3
         self.log_gui = log_gui
+        self.door = door
+        self.sfx = sfx
 
         self.crashed = False
 
-        self.manager = mp.Manager()  # use multiprocess Manager
+        self.manager = mp.Manager()  
         self.output_queue = self.manager.Queue()
         self.namespace_queue = self.manager.Queue()
         self.error_queue = self.manager.Value(c_bool, False)
+        self.door_status_queue = self.manager.Value(c_bool,False)
+        self.door_broken_queue = self.manager.Value(c_bool,False)
+        self.door_desired_queue = self.manager.Value(c_bool,False)
+        self.last_move_queue = self.manager.Value(int,None)
+
         self.custom_print = CustomPrintFactory(self.output_queue)
+        self.safe_door = SafeDoor(self.door_status_queue,self.door_desired_queue,self.door_broken_queue)
+        self.safe_detector = SafeDetector(self.last_move_queue)
+
         self.namespace =  {
             '__builtins__': safe_builtins,
             '_getattr_': getattr,
@@ -46,6 +87,10 @@ class CodeExecutor():
             '_inplacevar_': _inplacevar_,
             '_print_':  self.custom_print,
             '_getitem_': lambda obj, index: obj[index],
+            'door': self.safe_door,
+            "__import__": _safe_import,
+            "detector": self.safe_detector,
+            '_write_': lambda *args: args[0]
         }
 
 
@@ -57,6 +102,7 @@ class CodeExecutor():
         if self.code is None:
             self.output.append("Error: No code provided, no code executed.")
             self.crashed = True
+            print(self.output)
 
 
         try: 
@@ -75,6 +121,7 @@ class CodeExecutor():
         if start_func is None or update_func is None:
             self.output.append("Error: Both 'start' and 'update' functions must be defined in the code.")
             self.crashed = True
+            print(self.output)
 
     def run_func_process(self,func):
         try:
@@ -82,6 +129,7 @@ class CodeExecutor():
         except Exception as e:
             self.output_queue.put("Error: "+str(e))
             self.error_queue.value = True
+            print(self.output)
         self.namespace_queue.put(self.namespace)
 
     def run_process_safe(self, func):
@@ -94,6 +142,7 @@ class CodeExecutor():
             process.join()
             self.output.append("Error: Execution timed out!")
             self.crashed = True
+            print(self.output)
         else:
             temp_list = []
             while not self.output_queue.empty():
@@ -104,7 +153,28 @@ class CodeExecutor():
 
             if self.error_queue.value:
                 self.crashed = True
+                print(self.output)
         self.log_gui.update_log(self.output)
 
-    def run_update(self):
+    def run_update(self,last_move):
+
+        start = time.time()
+
+        self.door_status_queue.value = self.door.status
+        self.door_broken_queue.value = self.door.broken
+        self.last_move_queue.value = last_move
+        
         self.run_process_safe(self.namespace.get('update'))
+
+        if self.door_desired_queue.value != self.door.status:
+            try:
+                result = self.door.attempt_status_change(self.door_desired_queue.value)
+                if result:
+                    if self.door_desired_queue.value != self.door_status_queue.value:
+                        self.sfx()
+            except Exception as e:
+                self.crashed =True
+                self.output.append("Error: "+str(e))
+
+        end = time.time()
+
