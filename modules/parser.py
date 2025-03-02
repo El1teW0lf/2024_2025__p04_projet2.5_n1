@@ -44,13 +44,16 @@ def divide_tokens(divided_code):
     return result
 
 
-def parse(code_list):
+def parse(code_list,offset):
 
     to_devide = ""
     for i in code_list:
         to_devide += i + ""
 
-    tokens = divide_tokens(to_devide)
+    lines = to_devide.split("")
+    trimmed = "".join(line[offset[1]:offset[1]+53] for line in lines[offset[0]:offset[0]+27])
+
+    tokens = divide_tokens(trimmed)
     context = {
         "is_comment": False,
         "in_double_string": False,
