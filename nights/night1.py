@@ -71,7 +71,7 @@ class Night1():
         self.agresivite = {
             "pichon": 1,
             "surveillant": 0,
-            "directeur":10,
+            "directeur":1,
             "CPE": 1,
         }
 
@@ -97,8 +97,7 @@ class Night1():
 
         self.positions["CPE"] = self.cpe.on_time_tick(self.time)
         self.positions["directeur"] = self.directeur.on_time_tick(self.time)
-        self.door.update()
-        self.door.force_change_status(self.time % 2 == 0)
+        self.door.update() 
         self.code_executor.run_update(self.last_move)
         self.last_move = []
 

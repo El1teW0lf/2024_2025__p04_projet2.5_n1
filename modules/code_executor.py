@@ -3,7 +3,10 @@ from RestrictedPython import compile_restricted
 from RestrictedPython.Guards import safe_builtins
 from ursina import *
 from ctypes import c_bool
+from line_profiler import profile
 import time
+import threading
+import asyncio
 
 class CustomPrintFactory:
     def __init__(self, output):
@@ -58,10 +61,11 @@ class SafeDetector():
         return self._last.value
     
 class CodeExecutor():
+    @profile
     def __init__(self,log_gui,door,sfx):
         self.code = None
         self.output = []
-        self.timeout = 30
+        self.timeout = 10
         self.log_gui = log_gui
         self.door = door
         self.sfx = sfx
@@ -72,6 +76,7 @@ class CodeExecutor():
         self.output_queue = self.manager.Queue()
         self.namespace_queue = self.manager.Queue()
         self.error_queue = self.manager.Value(c_bool, False)
+        self.running_queue = self.manager.Value(c_bool, False)
         self.door_status_queue = self.manager.Value(c_bool,False)
         self.door_broken_queue = self.manager.Value(c_bool,False)
         self.door_desired_queue = self.manager.Value(c_bool,False)
@@ -94,11 +99,11 @@ class CodeExecutor():
             '_write_': lambda *args: args[0]
         }
 
-
+    @profile
     def setup(self):
         self.setup_code()
         self.run_process_safe(self.namespace.get('start'))
-
+    @profile
     def setup_code(self):
         if self.code is None:
             self.output.append("Error: No code provided, no code executed.")
@@ -124,47 +129,52 @@ class CodeExecutor():
             self.crashed = True
             print(self.output)
 
-    def run_func_process(self,func):
+    def run_func_process(self, func):
+        self.running_queue.value = True
         try:
             func()
         except Exception as e:
-            self.output_queue.put("Error: "+str(e))
+            self.output_queue.put(f"Error: {e}")
             self.error_queue.value = True
-            print(self.output)
-        self.namespace_queue.put(self.namespace)
+        finally:
+            self.namespace_queue.put(self.namespace)
+        self.running_queue.value = False
 
     def run_process_safe(self, func):
         process = mp.Process(target=self.run_func_process, args=(func,))
         process.start()
-        process.join(self.timeout)
-        if process.is_alive():
-            print("Process is still alive, timeout occurred.")
-            process.terminate()
-            process.join()
-            self.output.append("Error: Execution timed out!")
-            self.crashed = True
-            print(self.output)
-        else:
-            temp_list = []
-            while not self.output_queue.empty():
-                temp_list.append(self.output_queue.get())
+        def monitor_process():
 
-            self.output.extend(temp_list)
-            self.namespace = self.namespace_queue.get()
+            for i in range(self.timeout):
+                print(self.running_queue.value)
+                if self.running_queue.value:
+                    if i > self.timeout - 2:
+                        print("Process is still alive, timeout occurred.")
+                        process.terminate()
 
-            if self.error_queue.value:
-                self.crashed = True
-                print(self.output)
-        self.log_gui.update_log(self.output)
+                        self.output.append("Error: Execution timed out!")
+                        self.crashed = True
+                    else:
+                        print(f"Process is alive, {i} seconds passed.")
+                        time.sleep(1)
+                else:
+                    while not self.output_queue.empty():
+                        self.output.append(self.output_queue.get())
+                    self.namespace = self.namespace_queue.get()
 
-    def run_update(self,last_move):
+                    if self.error_queue.value:
+                        self.crashed = True
+                    print(self.output)
+            self.log_gui.update_log(self.output)
 
-        start = time.time()
+        monitor_thread = threading.Thread(target=monitor_process, daemon=True)
+        monitor_thread.start()
 
+    async def run_update_async(self, last_move):
         self.door_status_queue.value = self.door.status
         self.door_broken_queue.value = self.door.broken
         self.last_move_queue.value = last_move
-        
+
         self.run_process_safe(self.namespace.get('update'))
 
         if self.door_desired_queue.value != self.door.status:
@@ -174,9 +184,14 @@ class CodeExecutor():
                     if self.door_desired_queue.value != self.door_status_queue.value:
                         self.sfx()
             except Exception as e:
-                self.crashed =True
-                self.output.append("Error: "+str(e))
+                self.crashed = True
+                self.output.append(f"Error: {e}")
 
-        end = time.time()
-        print(end-start)
+    def run_update(self, last_move):
+        if not self.running_queue.value:
+            try:
+                asyncio.get_running_loop().create_task(self.run_update_async(last_move))
+            except RuntimeError:
+                asyncio.run(self.run_update_async(last_move))
+
 
