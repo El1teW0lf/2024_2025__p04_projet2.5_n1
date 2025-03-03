@@ -26,20 +26,6 @@ def get_max_window_size(aspect_ratio):
 
     return target_width, target_height
 
-app = Ursina(development_mode=False,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
-save = Save()
-sound = Sound()
-window.forced_aspect_ratio = 1.777
-window.borderless = True
-max_width, max_height = get_max_window_size(window.forced_aspect_ratio)
-window.size = (max_width/2,max_height/2)
-
-loadPrcFileData("", "gl-version 3 2")
-
-count = 0
-tick_events = []
-all_ticks_events = []
-
 
 
 def setup_map():
