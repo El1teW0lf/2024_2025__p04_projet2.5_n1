@@ -28,7 +28,9 @@ sound = Sound()
 window.forced_aspect_ratio = 1.777
 window.borderless = True
 max_width, max_height = get_max_window_size(window.forced_aspect_ratio)
-window.size = (max_width/2,max_height/2)
+window.fullscreen = True
+window.always_on_top = True
+
 
 loadPrcFileData("", "gl-version 3 2")
 
@@ -58,7 +60,6 @@ def setup_map():
     print("Map Done")
     print("Launching Night 1")
 
-    window.fullscreen = True
 
     night = Night1(player,save,sound)
 

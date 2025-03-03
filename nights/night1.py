@@ -91,6 +91,8 @@ class Night1():
         else:
             print("No Save Data found.")
 
+        print(window.monitors)
+
     def time_tick(self):
 
         self.positions["CPE"] = self.cpe.on_time_tick(self.time)

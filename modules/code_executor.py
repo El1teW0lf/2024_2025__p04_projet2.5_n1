@@ -60,7 +60,7 @@ class CodeExecutor():
     def __init__(self,log_gui,door,sfx):
         self.code = None
         self.output = []
-        self.timeout = 3
+        self.timeout = 30
         self.log_gui = log_gui
         self.door = door
         self.sfx = sfx
@@ -177,4 +177,5 @@ class CodeExecutor():
                 self.output.append("Error: "+str(e))
 
         end = time.time()
+        print(end-start)
 
