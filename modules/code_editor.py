@@ -34,6 +34,8 @@ class CodeEditor():
 
     def on_key(self,key):
 
+        print(key)
+
         if not self.close:
             return
         
@@ -45,16 +47,16 @@ class CodeEditor():
         big_keys=["tab","space"]
         big_chars=[""," "]
 
-        shift_keys = ["&","é",'"',"'","(","§","è","!","ç","à",")","-",";"]
-        shift_chars = ["1","2","3","4","5","6","7","8","9","0","°","_","."]
+        shift_keys = ["&",'"',"'","(","-","_",")",";",","]
+        shift_chars = ["1","3","4","5","6","8","°",".","m"]
 
         if len(key) == 1:
 
             to_add = ""
 
-            if key.isdigit():
+            if key in shift_chars:
                 return
-            
+ 
             if key in shift_keys:
                 if self.is_shift_pressed :
                     to_add = shift_chars[shift_keys.index(key)]

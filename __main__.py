@@ -57,7 +57,7 @@ def setup_map():
     add_all_ticks_event("night_tick", app.night.count_tick, ())
     print("Launched Night 1")
 
-    ingame_gui = IGGUI(True, app.night)
+    ingame_gui = IGGUI(False, app.night)
     app.night.igg = ingame_gui
     ingame_gui.blink_opacity = 1
 
@@ -158,7 +158,6 @@ if __name__ == "__main__":
         max_width, max_height = get_max_window_size(window.forced_aspect_ratio)
         window.fullscreen = True
         window.always_on_top = True
-
 
         loadPrcFileData("", "gl-version 3 2")
 
