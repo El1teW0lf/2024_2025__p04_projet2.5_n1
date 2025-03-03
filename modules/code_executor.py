@@ -1,6 +1,7 @@
 import multiprocess as mp  
 from RestrictedPython import compile_restricted
 from RestrictedPython.Guards import safe_builtins
+from ursina import *
 from ctypes import c_bool
 import time
 
@@ -60,7 +61,7 @@ class CodeExecutor():
     def __init__(self,log_gui,door,sfx):
         self.code = None
         self.output = []
-        self.timeout = 3
+        self.timeout = 30
         self.log_gui = log_gui
         self.door = door
         self.sfx = sfx
@@ -177,4 +178,5 @@ class CodeExecutor():
                 self.output.append("Error: "+str(e))
 
         end = time.time()
+        print(end-start)
 

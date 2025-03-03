@@ -98,6 +98,8 @@ class Night1():
         else:
             print("No Save Data found.")
 
+        print(window.monitors)
+
     def time_tick(self):
 
         self.positions["CPE"] = self.cpe.on_time_tick(self.time)
@@ -440,8 +442,8 @@ class Night1():
         door_status = "off" if self.door.broken else ("closed" if self.door.status else "open")
 
         if len(close_npc) > 0:
-            return f"door_{close_npc[0]}_{door_status}.png"
-        return f"door_{door_status}.png"
+            return f"textures/plane/Doors/door_{close_npc[0]}_{door_status}.png"
+        return f"textures/plane/Doors/door_{door_status}.png"
 
     def win(self):
         if self.in_computer : 

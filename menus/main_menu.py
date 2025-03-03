@@ -101,8 +101,8 @@ class MainMenu(Entity):
         # Loop through all buttons
         for button, default_scale in default_scales.items():
             if mouse.hovered_entity == button:
-                mouse.visible = True
-                mouse.texture = "assets/on_hover_cursor.png"
+               # mouse.visible = True
+               # mouse.texture = "assets/on_hover_cursor.png"
                 button.scale = (default_scale[0] * 1.05, default_scale[1] * 1.05)  # Slightly increase size
                 if mouse.left:
                     if button == self.start_button:
@@ -115,5 +115,5 @@ class MainMenu(Entity):
             else:
                 button.scale = default_scale 
                 
-                mouse.texture = None # Reset scale when not hovered
+               # mouse.texture = None # Reset scale when not hovered
 
