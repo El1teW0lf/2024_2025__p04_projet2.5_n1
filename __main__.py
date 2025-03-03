@@ -10,7 +10,11 @@ from panda3d.core import loadPrcFileData
 from modules.save import Save
 from modules.sfx import Sound
 import traceback
+from menus.death import DeathMenu
+from modules.eventbus import EventBus
 
+
+    
 def get_max_window_size(aspect_ratio):
     screen_width, screen_height = window.fullscreen_size
     target_width = screen_width
@@ -36,6 +40,8 @@ count = 0
 tick_events = []
 all_ticks_events = []
 
+
+
 def setup_map():
     print("Map Setup")
     load_model("models/plane")
@@ -60,35 +66,63 @@ def setup_map():
 
     window.fullscreen = True
 
-    night = Night1(player,save,sound)
+    # Store night inside app (global accessible)
+    app.night = Night1(player, save, sound)
 
-    add_all_ticks_event("night_tick",night.count_tick,())
+    add_all_ticks_event("night_tick", app.night.count_tick, ())
     print("Launched Night 1")
 
-    ingame_gui = IGGUI(True,night)
-    night.igg = ingame_gui
-
+    ingame_gui = IGGUI(True, app.night)
+    app.night.igg = ingame_gui
     ingame_gui.blink_opacity = 1
 
     def update_debug_text(current):
         ingame_gui.debug_info = f"""
-            time_tick: {night.time}
+            time_tick: {app.night.time}
             current_tick: {current}
-            position_cpe: {night.positions['CPE']}
-            position_directeur: {night.positions['directeur']}
-            current_scene: {night.current_scene}
-            current_scene_type: {night.current_scene_type}
+            position_cpe: {app.night.positions['CPE']}
+            position_directeur: {app.night.positions['directeur']}
+            current_scene: {app.night.current_scene}
+            current_scene_type: {app.night.current_scene_type}
             current_rotation: {player.rotation_y}
-            in_computer: {night.in_computer}
-            door_status: {night.door.status}
-            door_temps: {night.door.temp}
-            door_broken: {night.door.broken}
+            in_computer: {app.night.in_computer}
+            door_status: {app.night.door.status}
+            door_temps: {app.night.door.temp}
+            door_broken: {app.night.door.broken}
         """
         ingame_gui.update()
 
-    add_all_ticks_event("debug_info_tick",update_debug_text,())
-    add_tick_event(count + 10,window.center_on_screen,())
+    add_all_ticks_event("debug_info_tick", update_debug_text, ())
+    add_tick_event(count + 10, window.center_on_screen, ())
 
+    def stop_night1():
+        print("Stopping Night 1...")
+
+        # Remove the night tick event
+        global all_ticks_events
+        all_ticks_events = [e for e in all_ticks_events if e["name"] not in ["night_tick", "debug_info_tick"]]
+
+        # Disable or delete Night 1 instance
+        if hasattr(app.night, "disable"):
+            app.night.disable()
+
+        app.night = None  # Ensure reference is cleared
+
+
+
+    def make_death_menu(message):
+        print(f"Received death message: {message}")
+        stop_night1()  # Stop Night 1 before showing the death screen
+        death_menu = DeathMenu(quit, message)
+        death_menu.show()
+
+    def subscribe_event(event_name, callback):
+        EventBus.subscribe(event_name, callback)
+
+    subscribe_event("death", make_death_menu)
+
+    
+        
 def quit():
     application.quit()
 
