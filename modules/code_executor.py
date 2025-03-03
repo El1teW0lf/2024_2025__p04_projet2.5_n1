@@ -1,6 +1,7 @@
 import multiprocess as mp  
 from RestrictedPython import compile_restricted
 from RestrictedPython.Guards import safe_builtins
+from ursina import *
 from ctypes import c_bool
 import time
 
