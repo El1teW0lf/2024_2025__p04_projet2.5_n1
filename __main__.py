@@ -39,6 +39,8 @@ def setup_map():
     player.speed = 0
     player.gravity = 0
 
+    window.fullscreen = True
+    window.borderless = True
     editor_camera = EditorCamera(enabled=False, ignore_paused=True)
 
     def pause_input(key):
@@ -150,13 +152,13 @@ def run(count):
 
 if __name__ == "__main__":
     try:
-        app = Ursina(development_mode=False,show_ursina_splash=False,icon="textures/icon.ico",title="Five Night At Pichon (BETA)")
+        app = Ursina(development_mode=False,show_ursina_splash=False,icon="textures/icon.ico",title="Five Nights At Pichon (BETA)")
         save = Save()
         sound = Sound()
         window.forced_aspect_ratio = 1.777
-        window.borderless = True
+        window.fullscreen = False
+        window.borderless = False
         max_width, max_height = get_max_window_size(window.forced_aspect_ratio)
-        window.fullscreen = True
         window.always_on_top = True
 
         loadPrcFileData("", "gl-version 3 2")
