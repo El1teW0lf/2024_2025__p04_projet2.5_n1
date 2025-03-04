@@ -89,4 +89,4 @@
 <h1 align="center">
 
   [![Logo2](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/bouton.svg)](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/archive/refs/heads/main.zip)
-  [![Logo3](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/bouton2.svg)](https://www.figma.com/proto/79NjlEh0RwbKBo6jVvEfdr/FNAP-presentation?node-id=25-2&p=f&t=S7fT8VinJD7MiLTl-0&scaling=contain&content-scaling=fixed&page-id=0%3A1)
+  [![Logo3](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/bouton2.svg)](https://www.figma.com/design/79NjlEh0RwbKBo6jVvEfdr/FNAP-presentation?node-id=0-1&t=MDoM4iLmzEhieFnk-1)
