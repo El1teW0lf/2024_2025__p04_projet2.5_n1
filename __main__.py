@@ -130,7 +130,7 @@ def get_main_menu(message):
     if message == "activate":
         Sky(enabled=False)
         menu = MainMenu(setup_map, quit)
-        menu.show()
+        add_tick_event(count + 10, menu.show, ())
         add_all_ticks_event("main_menu_logo_animation", menu.tick, ())
 
 subscribe_event("main_menu", get_main_menu)

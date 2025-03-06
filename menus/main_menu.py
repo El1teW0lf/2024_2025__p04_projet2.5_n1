@@ -7,6 +7,7 @@ class MainMenu(Entity):
 
         self.start_callback = start_callback
         self.quit_callback = quit_callback
+        self.active = True
         # Create a background entity with a quad model
         self.bg = Entity(
             model="quad",
@@ -75,6 +76,7 @@ class MainMenu(Entity):
         self.menu_items = [self.bg, self.title, self.start_button, self.settings_button, self.quit_button, self.pichon]
 
     def show(self):
+        print(self.bg.texture)
         for item in self.menu_items:
             item.enable()
 
@@ -100,18 +102,21 @@ class MainMenu(Entity):
 
         # Loop through all buttons
         for button, default_scale in default_scales.items():
-            if mouse.hovered_entity == button:
+            if mouse.hovered_entity == button and self.active:
                # mouse.visible = True
                # mouse.texture = "assets/on_hover_cursor.png"
                 button.scale = (default_scale[0] * 1.05, default_scale[1] * 1.05)  # Slightly increase size
                 if mouse.left:
                     if button == self.start_button:
                         self.launch()
+                        self.active = False
                     elif button == self.settings_button:
                         go_to_settings(self, "dark")
                         print("MAIN_MENU_LOGS : Switching to green state for settings")
+                        self.active = False
                     elif button == self.quit_button:
                         self.quit_callback()
+                        self.active = False
             else:
                 button.scale = default_scale 
                 
