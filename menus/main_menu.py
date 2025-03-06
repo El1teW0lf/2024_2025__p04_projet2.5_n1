@@ -11,7 +11,7 @@ class MainMenu(Entity):
         self.bg = Entity(
             model="quad",
             origin=(0, 0),  # Center the background
-            texture="assets/main_menu/green_bg.png",
+            texture="menus/assets/main_menu/green_bg.png",
             scale=(window.aspect_ratio * 8.25, 8.25),  # Correct scaling
             z=0  # Keep it in the background
         )
@@ -19,7 +19,7 @@ class MainMenu(Entity):
         # Title Text
         self.title = Sprite(
             parent=camera.ui,
-            texture="assets/main_menu/main_menu_title.png",
+            texture="menus/assets/main_menu/main_menu_title.png",
             origin=(0, 0),  # Align the left side of the sprite
             scale=(0.1, 0.1),
             z=-1,
@@ -30,7 +30,7 @@ class MainMenu(Entity):
         self.start_button = Entity(
             model="quad",
             parent=camera.ui,  # Attach to UI for proper rendering
-            texture="assets/main_menu/play_btn.png",
+            texture="menus/assets/main_menu/play_btn.png",
             scale=(0.337, 0.1),
             origin=(0, 0),  # Align the left side of the button
             color=color.white,  # Prevents darkening effect
@@ -42,7 +42,7 @@ class MainMenu(Entity):
         self.settings_button = Entity(
             model="quad",
             parent=camera.ui,  # Attach to UI for proper rendering
-            texture="assets/main_menu/settings_btn.png",
+            texture="menus/assets/main_menu/settings_btn.png",
             scale=(0.537, 0.1),
             origin=(0, 0),  # Align the left side of the button
             color=color.white,  # Prevents darkening effect
@@ -54,7 +54,7 @@ class MainMenu(Entity):
         self.quit_button = Entity(
             model="quad",
             parent=camera.ui,  # Attach to UI for proper rendering
-            texture="assets/main_menu/quit_btn.png",
+            texture="menus/assets/main_menu/quit_btn.png",
             scale=(0.302, 0.1),
             origin=(0, 0),  # Align the left side of the button
             color=color.white,  # Prevents darkening effect
@@ -65,7 +65,7 @@ class MainMenu(Entity):
         self.pichon = Entity(
             model="quad",
             parent=camera.ui,
-            texture="assets/main_menu/pichon.png",
+            texture="menus/assets/main_menu/pichon.png",
             scale = (0.8, 1),
             origin=(0, 0),  # Align the left side of the sprite
             position = (0.5, -0.05),  # Place it at the top-left side of

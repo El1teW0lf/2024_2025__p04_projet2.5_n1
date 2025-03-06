@@ -11,12 +11,10 @@ import time
 import asyncio
 import threading
 from menus.death import DeathMenu
-from modules.eventbus import EventBus
+from modules.eventbus import send_message
 
 
-def send_message(event_name, message):
-    print(f"Sent {event_name} message {message} to all subscribers")
-    EventBus.send(event_name, message)
+
 
 class Night1():
 
@@ -420,10 +418,10 @@ class Night1():
         self.sound.play_jumpscare()
         time.sleep(1.25)
         
-        message = "\n".join(map(str, self.code_executor.output[-2:]))
-        send_message("death", message)
         
-        self.office_plane.texture = "textures/black.jpg"
+        send_message("death", "Killed by Pichon")
+        
+        self.office_plane.disable()
         
         
         
@@ -450,6 +448,7 @@ class Night1():
         self.office_plane.texture = "textures/black.jpg"
         self.switch_plane()
         self.set_button_status(False,False,False,False)
+        send_message("win", "")
 
     async def cpe_kill(self):
 
@@ -477,7 +476,8 @@ class Night1():
         self.office_plane.texture = video
         self.sound.play_jumpscare()
         time.sleep(1.25)
-        self.office_plane.texture = "textures/black.jpg"
+        send_message("death", "Killed by CPE")
+        self.office_plane.disable()
 
     async def directeur_kill(self):
 
@@ -505,4 +505,5 @@ class Night1():
         video.repeat = False
         self.office_plane.texture = video
         time.sleep(1.25)
-        self.office_plane.texture = "textures/black.jpg"
+        send_message("death", "Killed by director")
+        self.office_plane.disable()

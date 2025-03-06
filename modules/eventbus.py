@@ -15,3 +15,9 @@ class EventBus:
             for callback in cls._subscribers[event_name]:
                 callback(data)
 
+def send_message(event_name, message):
+    print(f"Sent {event_name} message {message} to all subscribers")
+    EventBus.send(event_name, message)
+
+def subscribe_event(event_name, callback):
+    EventBus.subscribe(event_name, callback)

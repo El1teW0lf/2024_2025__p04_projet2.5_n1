@@ -11,7 +11,8 @@ from modules.save import Save
 from modules.sfx import Sound
 import traceback
 from menus.death import DeathMenu
-from modules.eventbus import EventBus
+from menus.win import WinMenu
+from modules.eventbus import subscribe_event
 
 
     
@@ -100,13 +101,16 @@ def setup_map():
     def make_death_menu(message):
         print(f"Received death message: {message}")
         stop_night1()  # Stop Night 1 before showing the death screen
-        death_menu = DeathMenu(quit, message)
+        death_menu = DeathMenu(message)
         death_menu.show()
 
-    def subscribe_event(event_name, callback):
-        EventBus.subscribe(event_name, callback)
+    def make_win_menu(message):
+        stop_night1()  # Stop Night 1 before showing the death screen
+        win_menu = WinMenu()
+        win_menu.show()
 
     subscribe_event("death", make_death_menu)
+    subscribe_event("win", make_win_menu)
 
     
         
@@ -119,10 +123,17 @@ def setup_main_menu():
     add_tick_event(50,splash.hide,())
     menu = MainMenu(setup_map,quit)
     menu.hide()
-    add_tick_event(150,menu.show,())
+    add_tick_event(150, menu.show, ())
     add_all_ticks_event("main_menu_logo_animation",menu.tick,())
     
+def get_main_menu(message):
+    if message == "activate":
+        Sky(enabled=False)
+        menu = MainMenu(setup_map, quit)
+        menu.show()
+        add_all_ticks_event("main_menu_logo_animation", menu.tick, ())
 
+subscribe_event("main_menu", get_main_menu)
 def setup():
     Sky(texture="textures/black.jpg")
     setup_main_menu()

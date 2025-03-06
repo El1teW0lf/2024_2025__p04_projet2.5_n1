@@ -1,16 +1,16 @@
 from ursina import *
 from modules.eventbus import send_message
 
-class DeathMenu(Entity):
-    def __init__(self, death_message):
+class WinMenu(Entity):
+    def __init__(self):
         super().__init__(parent=camera.ui)
-        
+        self.quit_callback = quit_callback
 
         # Background
         self.bg = Entity(
             parent=self,
             model="quad",
-            texture="menus/assets/death/bg.png",
+            texture="menus/assets/win/bg.png",
             scale=(window.aspect_ratio, 1),
             z=0
         )
@@ -18,9 +18,9 @@ class DeathMenu(Entity):
         # Title
         self.title = Sprite(
             parent=self,
-            texture="menus/assets/death/title.png",
+            texture="menus/assets/win/title.png",
             position=(0, 0.3),
-            scale=(0.5, 0.1),
+            scale=(0.492, 0.1),
             z=-1
         )
 
@@ -29,22 +29,20 @@ class DeathMenu(Entity):
         base_scale = 1.0  # Default scale
         scale_factor = max(0.3, min(1.0, 20 / text_length))  # Adjust dynamically
 
-        # Death message label
-        self.death_message_label = Text(
+        # Congrats title
+        self.congrats_title = Sprite(
             parent=self,
-            text=death_message,
+            texture="menus/assets/win/congrats_title.png",
             position=(0, 0),
-            scale=scale_factor,
-            z=-1,
-            origin=(0, 0),
-            color=color.white
+            scale=(0.594, 0.1),
+            z=-1
         )
 
         self.main_menu_btn = Entity(
             model="quad",
             parent=camera.ui,  # Attach to UI for proper rendering
-            texture="assets/death/main_menu_btn.png",
-            scale=(0.341, 0.1),
+            texture="assets/win/main_menu_btn.png",
+            scale=(0.276, 0.1),
             origin=(0, 0),  # Align the left side of the button
             color=color.white,  # Prevents darkening effect
             collider="box",  # Adding a collider for the button
@@ -54,8 +52,8 @@ class DeathMenu(Entity):
         self.quit_btn = Entity(
             model="quad",
             parent=camera.ui,  # Attach to UI for proper rendering
-            texture="assets/death/quit_btn.png",
-            scale=(0.269, 0.1),
+            texture="assets/win/quit_btn.png",
+            scale=(0.252, 0.1),
             origin=(0, 0),  # Align the left side of the button
             color=color.white,  # Prevents darkening effect
             collider="box",  # Adding a collider for the button
@@ -102,4 +100,3 @@ class DeathMenu(Entity):
                     self.hide()
             else:
                 button.scale = info["scale"]
-
