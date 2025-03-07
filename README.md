@@ -86,6 +86,8 @@
 > [!TIP]
 > ![imagee](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/folder/stat_langage.svg)
 
+> [!WARNING]
+> ### VOUS ÊTES OBLIGES D'INSTALLER TOUS LES MODULES : ```requirements.txt```
 <h1 align="center">
 
   [![Logo2](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/blob/main/bouton.svg)](https://github.com/El1teW0lf/2024_2025__p04_projet2.5_n1/archive/refs/heads/main.zip)
